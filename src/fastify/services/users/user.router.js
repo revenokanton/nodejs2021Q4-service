@@ -1,5 +1,17 @@
 const userController = require('./user.service');
 
+const schema = {
+  body: {
+    type: 'object',
+    required: ['name', 'password', 'login'],
+    properties: {
+      name: { type: 'string' },
+      password: { type: 'string' },
+      login: { type: 'string' },
+    },
+  },
+};
+
 const userRoutes = [
   {
     method: 'GET',
@@ -15,11 +27,13 @@ const userRoutes = [
     method: 'POST',
     url: '/users',
     handler: userController.addUser,
+    schema,
   },
   {
     method: 'PUT',
     url: '/users/:id',
     handler: userController.updateUser,
+    schema,
   },
   {
     method: 'DELETE',
