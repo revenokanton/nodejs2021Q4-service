@@ -1,18 +1,12 @@
 const boom = require('boom');
 const Board = require('./board.model');
-const {
-  findAll,
-  findById,
-  addNewBoard,
-  updateBoard,
-  deleteBoard,
-} = require('./board.memory.repository');
+const boardRepo = require('./board.memory.repository');
 const { handleNotFound } = require('../errors/errors.service');
-const { deleteTasksByBoardId } = require('../task/task.memory.repository');
+const taskRepo = require('../task/task.memory.repository');
 
-exports.getAllBoards = (req, reply) => {
+exports.getAllBoards = async (req, reply) => {
   try {
-    const boards = findAll();
+    const boards = await boardRepo.findAll();
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -22,10 +16,10 @@ exports.getAllBoards = (req, reply) => {
   }
 };
 
-exports.getBoard = (req, reply) => {
+exports.getBoard = async (req, reply) => {
   try {
     const id = req?.params?.id;
-    const board = findById(id);
+    const board = await boardRepo.findById(id);
     if (board) {
       reply
         .code(200)
@@ -39,10 +33,10 @@ exports.getBoard = (req, reply) => {
   }
 };
 
-exports.addBoard = (req, reply) => {
+exports.addBoard = async (req, reply) => {
   try {
     const board = new Board(req.body);
-    addNewBoard(board);
+    await boardRepo.addNewBoard(board);
     reply
       .code(201)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -52,11 +46,11 @@ exports.addBoard = (req, reply) => {
   }
 };
 
-exports.updateBoard = (req, reply) => {
+exports.updateBoard = async (req, reply) => {
   try {
     const { id } = req.params;
     const { ...updateData } = req.body;
-    const board = updateBoard(id, updateData);
+    const board = await boardRepo.updateBoard(id, updateData);
     if (board) {
       reply
         .code(200)
@@ -73,9 +67,9 @@ exports.updateBoard = (req, reply) => {
 exports.deleteBoard = async (req, reply) => {
   try {
     const { id } = req.params;
-    const board = deleteBoard(id);
+    const board = await boardRepo.deleteBoard(id);
     if (board) {
-      deleteTasksByBoardId(id);
+      await taskRepo.deleteTasksByBoardId(id);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')

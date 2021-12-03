@@ -1,4 +1,4 @@
-const boardController = require('./board.service');
+const boardService = require('./board.service');
 
 const schema = {
   body: {
@@ -15,29 +15,29 @@ const boardRoutes = [
   {
     method: 'GET',
     url: '/boards',
-    handler: boardController.getAllBoards,
+    handler: boardService.getAllBoards,
   },
   {
     method: 'GET',
     url: '/boards/:id',
-    handler: boardController.getBoard,
+    handler: boardService.getBoard,
   },
   {
     method: 'POST',
     url: '/boards',
-    handler: boardController.addBoard,
+    handler: boardService.addBoard,
     schema,
   },
   {
     method: 'PUT',
     url: '/boards/:id',
-    handler: boardController.updateBoard,
+    handler: boardService.updateBoard,
     schema,
   },
   {
     method: 'DELETE',
     url: '/boards/:id',
-    handler: boardController.deleteBoard,
+    handler: boardService.deleteBoard,
   },
 ];
 

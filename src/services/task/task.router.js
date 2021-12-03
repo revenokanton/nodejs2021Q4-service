@@ -1,4 +1,4 @@
-const taskController = require('./task.service');
+const taskService = require('./task.service');
 
 const schema = {
   body: {
@@ -18,29 +18,29 @@ const taskRoutes = [
   {
     method: 'GET',
     url: '/boards/:boardId/tasks',
-    handler: taskController.getAllTasks,
+    handler: taskService.getAllTasks,
   },
   {
     method: 'GET',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskController.getTask,
+    handler: taskService.getTask,
   },
   {
     method: 'POST',
     url: '/boards/:boardId/tasks',
-    handler: taskController.addTask,
+    handler: taskService.addTask,
     schema,
   },
   {
     method: 'PUT',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskController.updateTask,
+    handler: taskService.updateTask,
     schema,
   },
   {
     method: 'DELETE',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskController.deleteTask,
+    handler: taskService.deleteTask,
   },
 ];
 

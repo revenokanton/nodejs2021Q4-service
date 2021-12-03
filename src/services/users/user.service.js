@@ -1,18 +1,12 @@
 const boom = require('boom');
 const User = require('./user.model');
-const {
-  findAll,
-  findById,
-  addNewUser,
-  updateUser,
-  deleteUser,
-} = require('./user.memory.repository');
+const userRepo = require('./user.memory.repository');
+const taskRepo = require('../task/task.memory.repository');
 const { handleNotFound } = require('../errors/errors.service');
-const { deleteUserIdFromTasks } = require('../task/task.memory.repository');
 
-exports.getAllUsers = (req, reply) => {
+exports.getAllUsers = async (req, reply) => {
   try {
-    const users = findAll();
+    const users = await userRepo.findAll();
     const filteredUsers = users?.map((user) => User.toResponse(user));
     reply
       .code(200)
@@ -23,10 +17,10 @@ exports.getAllUsers = (req, reply) => {
   }
 };
 
-exports.getUser = (req, reply) => {
+exports.getUser = async (req, reply) => {
   try {
     const id = req?.params?.id;
-    const user = findById(id);
+    const user = await userRepo.findById(id);
     if (user) {
       reply
         .code(200)
@@ -40,10 +34,10 @@ exports.getUser = (req, reply) => {
   }
 };
 
-exports.addUser = (req, reply) => {
+exports.addUser = async (req, reply) => {
   try {
     const user = new User(req.body);
-    addNewUser(user);
+    await userRepo.addNewUser(user);
     reply
       .code(201)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -53,11 +47,11 @@ exports.addUser = (req, reply) => {
   }
 };
 
-exports.updateUser = (req, reply) => {
+exports.updateUser = async (req, reply) => {
   try {
     const { id } = req.params;
     const { ...updateData } = req.body;
-    const user = updateUser(id, updateData);
+    const user = await userRepo.updateUser(id, updateData);
     if (user) {
       reply
         .code(200)
@@ -74,9 +68,9 @@ exports.updateUser = (req, reply) => {
 exports.deleteUser = async (req, reply) => {
   try {
     const { id } = req.params;
-    const user = deleteUser(id);
+    const user = await userRepo.deleteUser(id);
     if (user) {
-      deleteUserIdFromTasks(id);
+      await taskRepo.deleteUserIdFromTasks(id);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')

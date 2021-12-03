@@ -1,19 +1,13 @@
 const boom = require('boom');
 const Task = require('./task.model');
-const {
-  findAll,
-  findById,
-  addNewTask,
-  updateTask,
-  deleteTask,
-} = require('./task.memory.repository');
+const taskService = require('./task.memory.repository');
 const boardMemory = require('../board/board.memory.repository');
 const { handleNotFound } = require('../errors/errors.service');
 
-exports.getAllTasks = (req, reply) => {
+exports.getAllTasks = async (req, reply) => {
   try {
     const boardId = req?.params?.boardId;
-    const tasks = findAll(boardId);
+    const tasks = await taskService.findAll(boardId);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -23,11 +17,11 @@ exports.getAllTasks = (req, reply) => {
   }
 };
 
-exports.getTask = (req, reply) => {
+exports.getTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
-    const task = findById(taskId, boardId);
+    const task = await taskService.findById(taskId, boardId);
 
     if (task) {
       reply
@@ -42,15 +36,15 @@ exports.getTask = (req, reply) => {
   }
 };
 
-exports.addTask = (req, reply) => {
+exports.addTask = async (req, reply) => {
   try {
     const boardId = req?.params?.boardId;
-    const board = boardMemory.findById(boardId);
+    const board = await boardMemory.findById(boardId);
 
     if (board) {
       const taskData = { ...req.body, boardId };
       const task = new Task(taskData);
-      addNewTask(task);
+      await taskService.addNewTask(task);
       reply
         .code(201)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -63,12 +57,12 @@ exports.addTask = (req, reply) => {
   }
 };
 
-exports.updateTask = (req, reply) => {
+exports.updateTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
     const updatedData = new Task(req.body);
-    const task = updateTask(taskId, boardId, updatedData);
+    const task = await taskService.updateTask(taskId, boardId, updatedData);
 
     if (task) {
       reply
@@ -83,13 +77,13 @@ exports.updateTask = (req, reply) => {
   }
 };
 
-exports.deleteTask = (req, reply) => {
+exports.deleteTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
-    const task = findById(taskId, boardId);
+    const task = await taskService.findById(taskId, boardId);
     if (task) {
-      deleteTask(taskId, boardId);
+      await taskService.deleteTask(taskId, boardId);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
