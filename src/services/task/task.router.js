@@ -8,6 +8,7 @@ const schema = {
       description: { type: 'string' },
       order: { type: 'number' },
       userId: { type: 'string' },
+      boardId: { type: 'string' },
       columnId: { type: 'string' },
     },
   },
