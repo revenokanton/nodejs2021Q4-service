@@ -67,7 +67,7 @@ exports.updateTask = (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
-    const { ...updatedData } = req.body;
+    const updatedData = new Task(req.body);
     const task = updateTask(taskId, boardId, updatedData);
 
     if (task) {

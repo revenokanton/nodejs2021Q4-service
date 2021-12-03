@@ -14,28 +14,7 @@ const updateTask = (taskId, boardId, data) => {
     (i) => i.id === taskId && i.boardId === boardId
   );
   if (taskIndex !== -1) {
-    if (data.id) {
-      tasks[taskIndex].id = data.id;
-    }
-    if (data.title) {
-      tasks[taskIndex].title = data.title;
-    }
-    if (data.description) {
-      tasks[taskIndex].description = data.description;
-    }
-    if (data.order) {
-      tasks[taskIndex].order = data.order;
-    }
-    if (data.userId) {
-      tasks[taskIndex].userId = data.userId;
-    }
-    if (data.boardId) {
-      tasks[taskIndex].boardId = data.boardId;
-    }
-    if (data.columnId) {
-      tasks[taskIndex].columnId = data.columnId;
-    }
-
+    tasks[taskIndex] = { ...tasks[taskIndex], ...data };
     return tasks[taskIndex];
   }
   return null;
