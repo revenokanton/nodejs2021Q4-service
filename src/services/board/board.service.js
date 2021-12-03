@@ -1,8 +1,8 @@
 const boom = require('boom');
 const Board = require('./board.model');
 const boardRepo = require('./board.memory.repository');
-const { handleNotFound } = require('../errors/errors.service');
 const taskRepo = require('../task/task.memory.repository');
+const { handleNotFound } = require('../errors/errors.service');
 
 exports.getAllBoards = async (req, reply) => {
   try {
