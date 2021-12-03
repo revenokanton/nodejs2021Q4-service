@@ -6,17 +6,17 @@ class Task {
     title = 'TASK',
     description = 'description',
     order = 0,
-    userId = null,
-    boardId = null,
-    columnId = null,
+    userId,
+    boardId,
+    columnId,
   } = {}) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.order = order;
-    this.userId = userId;
-    this.boardId = boardId;
-    this.columnId = columnId;
+    this.userId = userId || null;
+    this.boardId = boardId || null;
+    this.columnId = columnId || null;
   }
 }
 

@@ -12,7 +12,8 @@ const { handleNotFound } = require('../errors/errors.service');
 
 exports.getAllTasks = (req, reply) => {
   try {
-    const tasks = findAll();
+    const boardId = req?.params?.boardId;
+    const tasks = findAll(boardId);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -86,9 +87,9 @@ exports.deleteTask = (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
-    const task = deleteTask(taskId, boardId);
-
+    const task = findById(taskId, boardId);
     if (task) {
+      deleteTask(taskId, boardId);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')

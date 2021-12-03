@@ -3,7 +3,6 @@ const taskController = require('./task.service');
 const schema = {
   body: {
     type: 'object',
-    required: ['title', 'description', 'order', 'userId', 'columnId'],
     properties: {
       title: { type: 'string' },
       description: { type: 'string' },
@@ -14,7 +13,7 @@ const schema = {
   },
 };
 
-const userRoutes = [
+const taskRoutes = [
   {
     method: 'GET',
     url: '/boards/:boardId/tasks',
@@ -44,4 +43,4 @@ const userRoutes = [
   },
 ];
 
-module.exports = userRoutes;
+module.exports = taskRoutes;

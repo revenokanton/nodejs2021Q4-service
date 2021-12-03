@@ -8,6 +8,7 @@ const {
   deleteBoard,
 } = require('./board.memory.repository');
 const { handleNotFound } = require('../errors/errors.service');
+const { deleteTasksByBoardId } = require('../task/task.memory.repository');
 
 exports.getAllBoards = (req, reply) => {
   try {
@@ -74,6 +75,7 @@ exports.deleteBoard = async (req, reply) => {
     const { id } = req.params;
     const board = deleteBoard(id);
     if (board) {
+      deleteTasksByBoardId(id);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')

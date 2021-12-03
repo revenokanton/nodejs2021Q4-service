@@ -8,6 +8,7 @@ const {
   deleteUser,
 } = require('./user.memory.repository');
 const { handleNotFound } = require('../errors/errors.service');
+const { deleteUserIdFromTasks } = require('../task/task.memory.repository');
 
 exports.getAllUsers = (req, reply) => {
   try {
@@ -75,6 +76,7 @@ exports.deleteUser = async (req, reply) => {
     const { id } = req.params;
     const user = deleteUser(id);
     if (user) {
+      deleteUserIdFromTasks(id);
       reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
