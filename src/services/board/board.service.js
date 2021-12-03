@@ -7,6 +7,7 @@ const {
   updateBoard,
   deleteBoard,
 } = require('./board.memory.repository');
+const { handleNotFound } = require('../errors/errors.service');
 
 exports.getAllBoards = (req, reply) => {
   try {
@@ -30,10 +31,7 @@ exports.getBoard = (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(board);
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No board with given id.' });
+      handleNotFound(reply, 'board');
     }
   } catch (err) {
     throw boom.boomify(err);
@@ -64,10 +62,7 @@ exports.updateBoard = (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(board);
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No board with given id.' });
+      handleNotFound(reply, 'board');
     }
   } catch (err) {
     throw boom.boomify(err);
@@ -84,10 +79,7 @@ exports.deleteBoard = async (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(board);
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No board with given id.' });
+      handleNotFound(reply, 'board');
     }
   } catch (err) {
     throw boom.boomify(err);

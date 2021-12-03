@@ -7,6 +7,7 @@ const {
   updateUser,
   deleteUser,
 } = require('./user.memory.repository');
+const { handleNotFound } = require('../errors/errors.service');
 
 exports.getAllUsers = (req, reply) => {
   try {
@@ -31,10 +32,7 @@ exports.getUser = (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(User.toResponse(user));
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No user with given id.' });
+      handleNotFound(reply, 'user');
     }
   } catch (err) {
     throw boom.boomify(err);
@@ -65,10 +63,7 @@ exports.updateUser = (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(User.toResponse(user));
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No user with given id.' });
+      handleNotFound(reply, 'user');
     }
   } catch (err) {
     throw boom.boomify(err);
@@ -85,10 +80,7 @@ exports.deleteUser = async (req, reply) => {
         .header('Content-Type', 'application/json; charset=utf-8')
         .send(User.toResponse(user));
     } else {
-      reply
-        .code(404)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ error: 'No user with given id.' });
+      handleNotFound(reply, 'user');
     }
   } catch (err) {
     throw boom.boomify(err);
