@@ -1,15 +1,17 @@
-let tasks = [];
+import { TaskInterface } from './task.model.d';
 
-const findAll = (boardId) => tasks.filter((i) => i.boardId === boardId);
+let tasks: TaskInterface[] = [];
 
-const findById = (taskId, boardId) =>
+const findAll = (boardId: string) => tasks.filter((i) => i.boardId === boardId);
+
+const findById = (taskId: string, boardId: string) =>
   tasks.find((i) => i.id === taskId && i.boardId === boardId);
 
-const addNewTask = (task) => {
+const addNewTask = (task: TaskInterface) => {
   tasks.push(task);
 };
 
-const updateTask = (taskId, boardId, data) => {
+const updateTask = (taskId: string, boardId: string, data: TaskInterface) => {
   const taskIndex = tasks.findIndex(
     (i) => i.id === taskId && i.boardId === boardId
   );
@@ -20,15 +22,15 @@ const updateTask = (taskId, boardId, data) => {
   return null;
 };
 
-const deleteTask = (taskId, boardId) => {
+const deleteTask = (taskId: string, boardId: string) => {
   tasks = tasks.filter((i) => i.id !== taskId || i.boardId !== boardId);
 };
 
-const deleteTasksByBoardId = (boardId) => {
+const deleteTasksByBoardId = (boardId: string) => {
   tasks = tasks.filter((i) => i.boardId !== boardId);
 };
 
-const deleteUserIdFromTasks = (userId) => {
+const deleteUserIdFromTasks = (userId: string) => {
   tasks.forEach((task, index) => {
     if (task.userId === userId) {
       tasks[index].userId = null;

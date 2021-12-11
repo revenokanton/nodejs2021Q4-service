@@ -1,6 +1,9 @@
+import { FastifyReply } from 'fastify';
 import { errorMessages } from './errors.model';
 
-export const handleNotFound = (reply, entityType) => {
+export type EntityType = 'user' | 'board' | 'task' | 'boardTasks';
+
+export const handleNotFound = (reply: FastifyReply, entityType: EntityType) => {
   reply
     .code(404)
     .header('Content-Type', 'application/json; charset=utf-8')

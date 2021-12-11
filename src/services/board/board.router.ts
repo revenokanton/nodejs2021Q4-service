@@ -1,3 +1,4 @@
+import { FastifyInstance } from 'fastify';
 import {
   getBoard,
   updateBoard,
@@ -17,34 +18,35 @@ const schema = {
   },
 };
 
-const boardRoutes = [
-  {
+const boardRouter = async (fastify: FastifyInstance) => {
+  fastify.route({
     method: 'GET',
     url: '/boards',
     handler: getAllBoards,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'GET',
     url: '/boards/:id',
     handler: getBoard,
-  },
-  {
+  });
+  fastify.route({
     method: 'POST',
     url: '/boards',
     handler: addBoard,
     schema,
-  },
-  {
+  });
+  fastify.route({
     method: 'PUT',
     url: '/boards/:id',
     handler: updateBoard,
     schema,
-  },
-  {
+  });
+  fastify.route({
     method: 'DELETE',
     url: '/boards/:id',
     handler: deleteBoard,
-  },
-];
+  });
+};
 
-export default boardRoutes;
+export default boardRouter;

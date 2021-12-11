@@ -1,14 +1,16 @@
-let boards = [];
+import { BoardInterface } from './board.model.d';
+
+let boards: BoardInterface[] = [];
 
 const findAll = () => boards;
 
-const findById = (id) => boards.find((i) => i.id === id);
+const findById = (id: string) => boards.find((i) => i.id === id);
 
-const addNewBoard = (board) => {
+const addNewBoard = (board: BoardInterface) => {
   boards.push(board);
 };
 
-const updateBoard = (id, data) => {
+const updateBoard = (id: string, data: BoardInterface) => {
   const boardIndex = boards.findIndex((i) => i.id === id);
   if (boardIndex !== -1) {
     boards[boardIndex] = { ...boards[boardIndex], ...data };
@@ -17,7 +19,7 @@ const updateBoard = (id, data) => {
   return null;
 };
 
-const deleteBoard = (id) => {
+const deleteBoard = (id: string) => {
   const board = findById(id);
   if (board) {
     boards = [...boards.filter((i) => i.id !== id)];

@@ -1,3 +1,4 @@
+import { FastifyInstance } from 'fastify';
 import {
   getAllTasks,
   getTask,
@@ -20,34 +21,38 @@ const schema = {
   },
 };
 
-const taskRoutes = [
-  {
+const taskRouter = async (fastify: FastifyInstance) => {
+  fastify.route({
     method: 'GET',
     url: '/boards/:boardId/tasks',
     handler: getAllTasks,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'GET',
     url: '/boards/:boardId/tasks/:taskId',
     handler: getTask,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'POST',
     url: '/boards/:boardId/tasks',
     handler: addTask,
     schema,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'PUT',
     url: '/boards/:boardId/tasks/:taskId',
     handler: updateTask,
     schema,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'DELETE',
     url: '/boards/:boardId/tasks/:taskId',
     handler: deleteTask,
-  },
-];
+  });
+};
 
-export default taskRoutes;
+export default taskRouter;

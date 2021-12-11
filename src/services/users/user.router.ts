@@ -1,3 +1,4 @@
+import { FastifyInstance } from 'fastify';
 import {
   getAllUsers,
   addUser,
@@ -18,34 +19,38 @@ const schema = {
   },
 };
 
-const userRoutes = [
-  {
+const userRouter = async (fastify: FastifyInstance) => {
+  fastify.route({
     method: 'GET',
     url: '/users',
     handler: getAllUsers,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'GET',
     url: '/users/:id',
     handler: getUser,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'POST',
     url: '/users',
     handler: addUser,
     schema,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'PUT',
     url: '/users/:id',
     handler: updateUser,
     schema,
-  },
-  {
+  });
+
+  fastify.route({
     method: 'DELETE',
     url: '/users/:id',
     handler: deleteUser,
-  },
-];
+  });
+};
 
-export default userRoutes;
+export default userRouter;

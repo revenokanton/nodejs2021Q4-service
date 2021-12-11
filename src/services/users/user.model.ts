@@ -1,6 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
+import { UserInterface } from './user.model.d';
 
-class User {
+class User implements UserInterface {
+  name: string;
+
+  id: string;
+
+  login: string;
+
+  password: string;
+
   constructor({
     id = uuidv4(),
     name = 'USER',
@@ -13,7 +22,7 @@ class User {
     this.password = password;
   }
 
-  static toResponse(user) {
+  static toResponse(user: UserInterface) {
     const { id, name, login } = user;
     return { id, name, login };
   }

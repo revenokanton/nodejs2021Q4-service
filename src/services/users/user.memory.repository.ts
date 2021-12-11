@@ -1,14 +1,16 @@
-let users = [];
+import { UserInterface } from './user.model.d';
+
+let users: UserInterface[] = [];
 
 const findAll = () => users;
 
-const findById = (id) => users.find((i) => i.id === id);
+const findById = (id: string) => users.find((i) => i.id === id);
 
-const addNewUser = (user) => {
+const addNewUser = (user: UserInterface) => {
   users.push(user);
 };
 
-const updateUser = (id, data) => {
+const updateUser = (id: string, data: UserInterface) => {
   const userIndex = users.findIndex((i) => i.id === id);
   if (userIndex !== -1) {
     users[userIndex] = { ...users[userIndex], ...data };
@@ -17,7 +19,7 @@ const updateUser = (id, data) => {
   return null;
 };
 
-const deleteUser = (id) => {
+const deleteUser = (id: string) => {
   const user = findById(id);
   if (user) {
     users = [...users.filter((i) => i.id !== id)];

@@ -1,10 +1,20 @@
 import boom from 'boom';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import Task from './task.model';
 import taskService from './task.memory.repository';
 import boardMemory from '../board/board.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
+import { TaskInterface } from './task.model.d';
 
-export const getAllTasks = async (req, reply) => {
+export type TaskRequestType = {
+  Params: { taskId: string; boardId: string };
+  Body: TaskInterface;
+};
+
+export const getAllTasks = async (
+  req: FastifyRequest<TaskRequestType>,
+  reply: FastifyReply
+) => {
   try {
     const boardId = req?.params?.boardId;
     const tasks = await taskService.findAll(boardId);
@@ -13,11 +23,14 @@ export const getAllTasks = async (req, reply) => {
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(tasks);
   } catch (err) {
-    throw boom.boomify(err);
+    throw boom.boomify(err as Error);
   }
 };
 
-export const getTask = async (req, reply) => {
+export const getTask = async (
+  req: FastifyRequest<TaskRequestType>,
+  reply: FastifyReply
+) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
@@ -32,11 +45,14 @@ export const getTask = async (req, reply) => {
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err);
+    throw boom.boomify(err as Error);
   }
 };
 
-export const addTask = async (req, reply) => {
+export const addTask = async (
+  req: FastifyRequest<TaskRequestType>,
+  reply: FastifyReply
+) => {
   try {
     const boardId = req?.params?.boardId;
     const board = await boardMemory.findById(boardId);
@@ -53,11 +69,14 @@ export const addTask = async (req, reply) => {
       handleNotFound(reply, 'board');
     }
   } catch (err) {
-    throw boom.boomify(err);
+    throw boom.boomify(err as Error);
   }
 };
 
-export const updateTask = async (req, reply) => {
+export const updateTask = async (
+  req: FastifyRequest<TaskRequestType>,
+  reply: FastifyReply
+) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
@@ -73,11 +92,14 @@ export const updateTask = async (req, reply) => {
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err);
+    throw boom.boomify(err as Error);
   }
 };
 
-export const deleteTask = async (req, reply) => {
+export const deleteTask = async (
+  req: FastifyRequest<TaskRequestType>,
+  reply: FastifyReply
+) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
@@ -92,6 +114,6 @@ export const deleteTask = async (req, reply) => {
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err);
+    throw boom.boomify(err as Error);
   }
 };
