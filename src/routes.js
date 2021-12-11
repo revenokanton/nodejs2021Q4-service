@@ -1,6 +1,5 @@
-const userRoutes = require('./services/users/user.router');
-const boardRoutes = require('./services/board/board.router');
-const taskRoutes = require('./services/task/task.router');
+import userRoutes from './services/users/user.router';
+import boardRoutes from './services/board/board.router';
+import taskRoutes from './services/task/task.router';
 
-const routes = [...userRoutes, ...boardRoutes, ...taskRoutes];
-module.exports = routes;
+export default [...userRoutes, ...boardRoutes, ...taskRoutes];

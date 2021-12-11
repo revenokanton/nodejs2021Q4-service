@@ -1,10 +1,10 @@
-const boom = require('boom');
-const Task = require('./task.model');
-const taskService = require('./task.memory.repository');
-const boardMemory = require('../board/board.memory.repository');
-const { handleNotFound } = require('../errors/errors.service');
+import boom from 'boom';
+import Task from './task.model';
+import taskService from './task.memory.repository';
+import boardMemory from '../board/board.memory.repository';
+import { handleNotFound } from '../errors/errors.service';
 
-exports.getAllTasks = async (req, reply) => {
+export const getAllTasks = async (req, reply) => {
   try {
     const boardId = req?.params?.boardId;
     const tasks = await taskService.findAll(boardId);
@@ -17,7 +17,7 @@ exports.getAllTasks = async (req, reply) => {
   }
 };
 
-exports.getTask = async (req, reply) => {
+export const getTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
@@ -36,7 +36,7 @@ exports.getTask = async (req, reply) => {
   }
 };
 
-exports.addTask = async (req, reply) => {
+export const addTask = async (req, reply) => {
   try {
     const boardId = req?.params?.boardId;
     const board = await boardMemory.findById(boardId);
@@ -57,7 +57,7 @@ exports.addTask = async (req, reply) => {
   }
 };
 
-exports.updateTask = async (req, reply) => {
+export const updateTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;
@@ -77,7 +77,7 @@ exports.updateTask = async (req, reply) => {
   }
 };
 
-exports.deleteTask = async (req, reply) => {
+export const deleteTask = async (req, reply) => {
   try {
     const taskId = req?.params?.taskId;
     const boardId = req?.params?.boardId;

@@ -26,7 +26,7 @@ const deleteUser = (id) => {
   return null;
 };
 
-module.exports = {
+export default {
   findAll,
   findById,
   addNewUser,

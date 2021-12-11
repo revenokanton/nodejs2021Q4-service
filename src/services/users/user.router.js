@@ -1,4 +1,10 @@
-const userController = require('./user.service');
+import {
+  getAllUsers,
+  addUser,
+  deleteUser,
+  updateUser,
+  getUser,
+} from './user.service';
 
 const schema = {
   body: {
@@ -16,30 +22,30 @@ const userRoutes = [
   {
     method: 'GET',
     url: '/users',
-    handler: userController.getAllUsers,
+    handler: getAllUsers,
   },
   {
     method: 'GET',
     url: '/users/:id',
-    handler: userController.getUser,
+    handler: getUser,
   },
   {
     method: 'POST',
     url: '/users',
-    handler: userController.addUser,
+    handler: addUser,
     schema,
   },
   {
     method: 'PUT',
     url: '/users/:id',
-    handler: userController.updateUser,
+    handler: updateUser,
     schema,
   },
   {
     method: 'DELETE',
     url: '/users/:id',
-    handler: userController.deleteUser,
+    handler: deleteUser,
   },
 ];
 
-module.exports = userRoutes;
+export default userRoutes;

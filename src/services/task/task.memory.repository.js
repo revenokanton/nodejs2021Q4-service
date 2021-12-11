@@ -36,7 +36,7 @@ const deleteUserIdFromTasks = (userId) => {
   });
 };
 
-module.exports = {
+export default {
   findAll,
   findById,
   addNewTask,

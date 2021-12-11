@@ -1,4 +1,10 @@
-const taskService = require('./task.service');
+import {
+  getAllTasks,
+  getTask,
+  addTask,
+  updateTask,
+  deleteTask,
+} from './task.service';
 
 const schema = {
   body: {
@@ -18,30 +24,30 @@ const taskRoutes = [
   {
     method: 'GET',
     url: '/boards/:boardId/tasks',
-    handler: taskService.getAllTasks,
+    handler: getAllTasks,
   },
   {
     method: 'GET',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskService.getTask,
+    handler: getTask,
   },
   {
     method: 'POST',
     url: '/boards/:boardId/tasks',
-    handler: taskService.addTask,
+    handler: addTask,
     schema,
   },
   {
     method: 'PUT',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskService.updateTask,
+    handler: updateTask,
     schema,
   },
   {
     method: 'DELETE',
     url: '/boards/:boardId/tasks/:taskId',
-    handler: taskService.deleteTask,
+    handler: deleteTask,
   },
 ];
 
-module.exports = taskRoutes;
+export default taskRoutes;

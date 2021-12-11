@@ -1,10 +1,10 @@
-const boom = require('boom');
-const Board = require('./board.model');
-const boardRepo = require('./board.memory.repository');
-const taskRepo = require('../task/task.memory.repository');
-const { handleNotFound } = require('../errors/errors.service');
+import boom from 'boom';
+import Board from './board.model';
+import boardRepo from './board.memory.repository';
+import taskRepo from '../task/task.memory.repository';
+import { handleNotFound } from '../errors/errors.service';
 
-exports.getAllBoards = async (req, reply) => {
+export const getAllBoards = async (req, reply) => {
   try {
     const boards = await boardRepo.findAll();
     reply
@@ -16,7 +16,7 @@ exports.getAllBoards = async (req, reply) => {
   }
 };
 
-exports.getBoard = async (req, reply) => {
+export const getBoard = async (req, reply) => {
   try {
     const id = req?.params?.id;
     const board = await boardRepo.findById(id);
@@ -33,7 +33,7 @@ exports.getBoard = async (req, reply) => {
   }
 };
 
-exports.addBoard = async (req, reply) => {
+export const addBoard = async (req, reply) => {
   try {
     const board = new Board(req.body);
     await boardRepo.addNewBoard(board);
@@ -46,7 +46,7 @@ exports.addBoard = async (req, reply) => {
   }
 };
 
-exports.updateBoard = async (req, reply) => {
+export const updateBoard = async (req, reply) => {
   try {
     const { id } = req.params;
     const { ...updateData } = req.body;
@@ -64,7 +64,7 @@ exports.updateBoard = async (req, reply) => {
   }
 };
 
-exports.deleteBoard = async (req, reply) => {
+export const deleteBoard = async (req, reply) => {
   try {
     const { id } = req.params;
     const board = await boardRepo.deleteBoard(id);

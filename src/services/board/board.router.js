@@ -1,4 +1,10 @@
-const boardService = require('./board.service');
+import {
+  getBoard,
+  updateBoard,
+  addBoard,
+  deleteBoard,
+  getAllBoards,
+} from './board.service';
 
 const schema = {
   body: {
@@ -15,30 +21,30 @@ const boardRoutes = [
   {
     method: 'GET',
     url: '/boards',
-    handler: boardService.getAllBoards,
+    handler: getAllBoards,
   },
   {
     method: 'GET',
     url: '/boards/:id',
-    handler: boardService.getBoard,
+    handler: getBoard,
   },
   {
     method: 'POST',
     url: '/boards',
-    handler: boardService.addBoard,
+    handler: addBoard,
     schema,
   },
   {
     method: 'PUT',
     url: '/boards/:id',
-    handler: boardService.updateBoard,
+    handler: updateBoard,
     schema,
   },
   {
     method: 'DELETE',
     url: '/boards/:id',
-    handler: boardService.deleteBoard,
+    handler: deleteBoard,
   },
 ];
 
-module.exports = boardRoutes;
+export default boardRoutes;

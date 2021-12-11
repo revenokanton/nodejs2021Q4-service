@@ -1,10 +1,10 @@
-const boom = require('boom');
-const User = require('./user.model');
-const userRepo = require('./user.memory.repository');
-const taskRepo = require('../task/task.memory.repository');
-const { handleNotFound } = require('../errors/errors.service');
+import boom from 'boom';
+import User from './user.model';
+import userRepo from './user.memory.repository';
+import taskRepo from '../task/task.memory.repository';
+import { handleNotFound } from '../errors/errors.service';
 
-exports.getAllUsers = async (req, reply) => {
+export const getAllUsers = async (req, reply) => {
   try {
     const users = await userRepo.findAll();
     const filteredUsers = users?.map((user) => User.toResponse(user));
@@ -17,7 +17,7 @@ exports.getAllUsers = async (req, reply) => {
   }
 };
 
-exports.getUser = async (req, reply) => {
+export const getUser = async (req, reply) => {
   try {
     const id = req?.params?.id;
     const user = await userRepo.findById(id);
@@ -34,7 +34,7 @@ exports.getUser = async (req, reply) => {
   }
 };
 
-exports.addUser = async (req, reply) => {
+export const addUser = async (req, reply) => {
   try {
     const user = new User(req.body);
     await userRepo.addNewUser(user);
@@ -47,7 +47,7 @@ exports.addUser = async (req, reply) => {
   }
 };
 
-exports.updateUser = async (req, reply) => {
+export const updateUser = async (req, reply) => {
   try {
     const { id } = req.params;
     const { ...updateData } = req.body;
@@ -65,7 +65,7 @@ exports.updateUser = async (req, reply) => {
   }
 };
 
-exports.deleteUser = async (req, reply) => {
+export const deleteUser = async (req, reply) => {
   try {
     const { id } = req.params;
     const user = await userRepo.deleteUser(id);
