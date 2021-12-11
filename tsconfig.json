@@ -9,12 +9,12 @@
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "alwaysStrict": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "strictPropertyInitialization": true,
-    "skipLibCheck": true
   },
   "exclude": ["./node_modules"],
   "include": ["./src/**/*.ts"]
