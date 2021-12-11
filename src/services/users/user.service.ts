@@ -22,7 +22,11 @@ export const getAllUsers = async (
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(filteredUsers);
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -42,7 +46,11 @@ export const getUser = async (
       handleNotFound(reply, 'user');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -58,7 +66,11 @@ export const addUser = async (
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(User.toResponse(user));
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -79,7 +91,11 @@ export const updateUser = async (
       handleNotFound(reply, 'user');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -100,6 +116,10 @@ export const deleteUser = async (
       handleNotFound(reply, 'user');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };

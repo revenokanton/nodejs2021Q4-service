@@ -22,7 +22,11 @@ export const getAllTasks = async (
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(tasks);
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -44,7 +48,11 @@ export const getTask = async (
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -68,7 +76,11 @@ export const addTask = async (
       handleNotFound(reply, 'board');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -91,7 +103,11 @@ export const updateTask = async (
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -113,6 +129,10 @@ export const deleteTask = async (
       handleNotFound(reply, 'task');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };

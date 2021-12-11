@@ -21,7 +21,11 @@ export const getAllBoards = async (
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(boards);
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -41,7 +45,11 @@ export const getBoard = async (
       handleNotFound(reply, 'board');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -57,7 +65,11 @@ export const addBoard = async (
       .header('Content-Type', 'application/json; charset=utf-8')
       .send(board);
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -78,7 +90,11 @@ export const updateBoard = async (
       handleNotFound(reply, 'board');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
 
@@ -99,6 +115,10 @@ export const deleteBoard = async (
       handleNotFound(reply, 'board');
     }
   } catch (err) {
-    throw boom.boomify(err as Error);
+    if (err instanceof Error) {
+      throw boom.boomify(err);
+    } else {
+      throw err;
+    }
   }
 };
