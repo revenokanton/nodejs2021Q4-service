@@ -11,7 +11,7 @@ const findAll = () => users;
 /**
  * Returns user with provided id
  * @param id id of the user
- * @returns user according to the transmitted id or undefined
+ * @returns user according to the transmitted id or undefined if no such user found
  */
 const findById = (id: string) => users.find((i) => i.id === id);
 
@@ -27,8 +27,8 @@ const addNewUser = (user: UserInterface) => {
 /**
  * Updates user with provided id according to provided data
  * @param id id of the user
- * @param data object with parameters which should be updated for current user
- * @returns user with updated fields according to the transmitted id or null
+ * @param data object with parameters which should be updated in current user
+ * @returns user with updated fields according to the transmitted id or null if no such user found
  */
 const updateUser = (id: string, data: UserInterface) => {
   const userIndex = users.findIndex((i) => i.id === id);
@@ -42,7 +42,7 @@ const updateUser = (id: string, data: UserInterface) => {
 /**
  * Delete user with provided id
  * @param id id of the user
- * @returns user which was deleted or null
+ * @returns user which was deleted or null if no such user found
  */
 const deleteUser = (id: string) => {
   const user = findById(id);
