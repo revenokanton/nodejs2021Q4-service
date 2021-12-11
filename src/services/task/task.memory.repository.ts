@@ -3,14 +3,14 @@ import { TaskInterface } from './task.model';
 let tasks: TaskInterface[] = [];
 
 /**
- * Returns all tasks from repository with provided boardId
+ * Returns all tasks from temporary db with provided boardId
  * @param boardId ID of the board to which the tasks belong
  * @returns tasks array with provided boardId from temporary db
  */
 const findAll = (boardId: string) => tasks.filter((i) => i.boardId === boardId);
 
 /**
- * Returns task from repository with provided taskId and boardId
+ * Returns task from temporary db with provided taskId and boardId
  * @param taskId id of the task
  * @param boardId ID of the board to which the tasks belong
  * @returns task with provided boardId and taskId
@@ -20,7 +20,7 @@ const findById = (taskId: string, boardId: string) =>
   tasks.find((i) => i.id === taskId && i.boardId === boardId);
 
 /**
- * Add new task to the tasks from repository
+ * Add new task to the tasks from temporary db
  * @param task object with task fields
  * @returns Nothing is returned.
  */
@@ -29,7 +29,7 @@ const addNewTask = (task: TaskInterface) => {
 };
 
 /**
- * Updates task from repository with provided taskId and boardId
+ * Updates task from temporary db with provided taskId and boardId
  * @param taskId id of the task
  * @param boardId ID of the board to which the tasks belong
  * @param data object with parameters which should be updated in current task
@@ -48,7 +48,7 @@ const updateTask = (taskId: string, boardId: string, data: TaskInterface) => {
 };
 
 /**
- * Deletes task from repository with provided taskId and boardId
+ * Deletes task from temporary db with provided taskId and boardId
  * @param taskId id of the task
  * @param boardId ID of the board to which the tasks belong
  * @returns task which was deleted from the repository
@@ -59,7 +59,7 @@ const deleteTask = (taskId: string, boardId: string) => {
 };
 
 /**
- * Deletes all tasks from repository with provided boardId
+ * Deletes all tasks from temporary db with provided boardId
  * @param boardId ID of the board to which the tasks belong
  * @returns Nothing is returned.
  */

@@ -3,20 +3,20 @@ import { UserInterface } from './user.model';
 let users: UserInterface[] = [];
 
 /**
- * Returns all users from repository
+ * Returns all users from temporary db
  * @returns users array from temporary db
  */
 const findAll = () => users;
 
 /**
- * Returns user with provided id
+ * Returns user with provided id from temporary db
  * @param id id of the user
  * @returns user according to the transmitted id or undefined if no such user found
  */
 const findById = (id: string) => users.find((i) => i.id === id);
 
 /**
- * Add new user to the users repository
+ * Add new user to the users temporary db
  * @param user object with user fields
  * @returns Nothing is returned.
  */
@@ -40,7 +40,7 @@ const updateUser = (id: string, data: UserInterface) => {
 };
 
 /**
- * Delete user with provided id
+ * Delete user with provided id from temporary db
  * @param id id of the user
  * @returns user which was deleted or null if no such user found
  */
