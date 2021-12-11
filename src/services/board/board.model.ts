@@ -1,8 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { BoardInterface, ColumnInterface } from './board.model.d';
+export interface ColumnInterface {
+  title: string;
+  order: number;
+}
 
-class Board implements BoardInterface {
+export interface BoardInterface {
+  id: string;
+  title: string;
+  columns: ColumnInterface[];
+}
+
+export class Board implements BoardInterface {
   id: string;
 
   title: string;
@@ -16,11 +25,9 @@ class Board implements BoardInterface {
   }: BoardInterface) {
     this.id = id;
     this.title = title;
-    this.columns = columns.map((column: ColumnInterface) => ({
+    this.columns = columns.map((column) => ({
       id: uuidv4(),
       ...column,
     }));
   }
 }
-
-export default Board;

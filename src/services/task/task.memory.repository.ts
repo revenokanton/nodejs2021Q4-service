@@ -1,4 +1,4 @@
-import { TaskInterface } from './task.model.d';
+import { TaskInterface } from './task.model';
 
 let tasks: TaskInterface[] = [];
 

@@ -1,7 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
-import { UserInterface } from './user.model.d';
 
-class User implements UserInterface {
+export interface UserInterface {
+  name: string;
+
+  id: string;
+
+  login: string;
+
+  password: string;
+}
+
+export class User implements UserInterface {
   name: string;
 
   id: string;
@@ -27,5 +36,3 @@ class User implements UserInterface {
     return { id, name, login };
   }
 }
-
-export default User;

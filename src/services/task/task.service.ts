@@ -1,10 +1,9 @@
 import boom from 'boom';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import Task from './task.model';
+import { Task, TaskInterface } from './task.model';
 import taskService from './task.memory.repository';
 import boardMemory from '../board/board.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
-import { TaskInterface } from './task.model.d';
 
 export type TaskRequestType = {
   Params: { taskId: string; boardId: string };

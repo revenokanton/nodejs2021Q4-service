@@ -1,7 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
-import { TaskInterface } from './task.model.d';
 
-class Task implements TaskInterface {
+export interface TaskInterface {
+  id: string;
+
+  title: string;
+
+  description: string;
+
+  order: number;
+
+  userId?: string | null;
+
+  boardId?: string | null;
+
+  columnId?: string | null;
+}
+
+export class Task implements TaskInterface {
   id: string;
 
   title: string;
@@ -34,5 +49,3 @@ class Task implements TaskInterface {
     this.columnId = columnId || null;
   }
 }
-
-export default Task;

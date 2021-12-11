@@ -1,4 +1,4 @@
-import { BoardInterface } from './board.model.d';
+import { BoardInterface } from './board.model';
 
 let boards: BoardInterface[] = [];
 

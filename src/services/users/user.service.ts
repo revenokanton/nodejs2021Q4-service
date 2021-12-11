@@ -1,10 +1,9 @@
 import boom from 'boom';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import User from './user.model';
+import { User, UserInterface } from './user.model';
 import userRepo from './user.memory.repository';
 import taskRepo from '../task/task.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
-import { UserInterface } from './user.model.d';
 
 export type UserRequestType = {
   Body: UserInterface;

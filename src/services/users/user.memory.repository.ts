@@ -1,4 +1,4 @@
-import { UserInterface } from './user.model.d';
+import { UserInterface } from './user.model';
 
 let users: UserInterface[] = [];
 
