@@ -19,6 +19,11 @@ const schema = {
   },
 };
 
+/**
+ * Set up routes for user resources
+ * @param fastify instance of the fastify framework
+ * @returns Nothing is returned.
+ */
 const userRouter = async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',

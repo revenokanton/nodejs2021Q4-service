@@ -21,6 +21,11 @@ const schema = {
   },
 };
 
+/**
+ * Set up routes for tasks resources
+ * @param fastify instance of the fastify framework
+ * @returns Nothing is returned.
+ */
 const taskRouter = async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',

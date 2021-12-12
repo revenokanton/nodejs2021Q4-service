@@ -18,6 +18,11 @@ const schema = {
   },
 };
 
+/**
+ * Set up routes for boards resources
+ * @param fastify instance of the fastify framework
+ * @returns Nothing is returned.
+ */
 const boardRouter = async (fastify: FastifyInstance) => {
   fastify.route({
     method: 'GET',
