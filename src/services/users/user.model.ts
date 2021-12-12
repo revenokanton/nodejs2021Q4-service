@@ -28,7 +28,7 @@ export class User implements UserInterface {
     this.password = password;
   }
 
-  static toResponse(user: UserInterface) {
+  static toResponse(user: UserInterface): Omit<UserInterface, 'password'> {
     const { id, name, login } = user;
     return { id, name, login };
   }

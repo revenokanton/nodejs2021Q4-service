@@ -23,10 +23,10 @@ const schema = {
 
 /**
  * Set up routes for tasks resources
- * @param fastify instance of the fastify framework
+ * @param fastify - instance of the fastify framework
  * @returns Nothing is returned.
  */
-const taskRouter = async (fastify: FastifyInstance) => {
+const taskRouter = async (fastify: FastifyInstance): Promise<void> => {
   fastify.route({
     method: 'GET',
     url: '/boards/:boardId/tasks',

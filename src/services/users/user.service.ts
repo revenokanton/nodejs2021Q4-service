@@ -13,7 +13,7 @@ export type UserRequestType = {
 export const getAllUsers = async (
   req: FastifyRequest,
   reply: FastifyReply
-): Promise<void> => {
+) => {
   try {
     const users = await userRepo.findAll();
     const filteredUsers = users?.map((user) => User.toResponse(user));
@@ -33,7 +33,7 @@ export const getAllUsers = async (
 export const getUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
-): Promise<void> => {
+) => {
   try {
     const id = req?.params?.id;
     const user = await userRepo.findById(id);
@@ -57,7 +57,7 @@ export const getUser = async (
 export const addUser = async (
   request: FastifyRequest<UserRequestType>,
   reply: FastifyReply
-): Promise<void> => {
+) => {
   try {
     const user = new User(request.body);
     await userRepo.addNewUser(user);
@@ -77,7 +77,7 @@ export const addUser = async (
 export const updateUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
-): Promise<void> => {
+) => {
   try {
     const { id } = req.params;
     const { ...updateData } = req.body;
@@ -102,7 +102,7 @@ export const updateUser = async (
 export const deleteUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
-): Promise<void> => {
+) => {
   try {
     const { id } = req.params;
     const user = await userRepo.deleteUser(id);
