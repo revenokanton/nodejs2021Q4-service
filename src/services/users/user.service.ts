@@ -9,6 +9,12 @@ export type UserRequestType = {
   Params: { id: string };
 };
 
+/**
+ * Send all users from database
+ * @param req - fastify request
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const getAllUsers = async (
   req: FastifyRequest,
   reply: FastifyReply
@@ -21,6 +27,12 @@ export const getAllUsers = async (
     .send(filteredUsers);
 };
 
+/**
+ * Send user regarding provided id
+ * @param req - fastify request with user request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const getUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
@@ -37,11 +49,17 @@ export const getUser = async (
   }
 };
 
+/**
+ * Add user to database and send added user data
+ * @param req - fastify request with user request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const addUser = async (
-  request: FastifyRequest<UserRequestType>,
+  req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
 ) => {
-  const user = new User(request.body);
+  const user = new User(req.body);
   await userRepo.addNewUser(user);
   reply
     .code(201)
@@ -49,6 +67,13 @@ export const addUser = async (
     .send(User.toResponse(user));
 };
 
+/**
+ * Update user with parameters regarding provided id to database
+ * and send updated user data
+ * @param req - fastify request with user request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const updateUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
@@ -66,6 +91,13 @@ export const updateUser = async (
   }
 };
 
+/**
+ * Delete user regarding provided id from database
+ * and send deleted user data
+ * @param req - fastify request with user request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const deleteUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply

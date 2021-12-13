@@ -9,6 +9,12 @@ export type BoardRequestType = {
   Body: BoardInterface;
 };
 
+/**
+ * Send all boards from database
+ * @param req - fastify request
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const getAllBoards = async (
   req: FastifyRequest,
   reply: FastifyReply
@@ -20,6 +26,12 @@ export const getAllBoards = async (
     .send(boards);
 };
 
+/**
+ * Send board regarding provided id
+ * @param req - fastify request with board request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const getBoard = async (
   req: FastifyRequest<BoardRequestType>,
   reply: FastifyReply
@@ -36,6 +48,12 @@ export const getBoard = async (
   }
 };
 
+/**
+ * Add board to database and send added board data
+ * @param req - fastify request with board request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const addBoard = async (
   req: FastifyRequest<BoardRequestType>,
   reply: FastifyReply
@@ -48,6 +66,13 @@ export const addBoard = async (
     .send(board);
 };
 
+/**
+ * Update board with parameters regarding provided id to database
+ * and send updated board data
+ * @param req - fastify request with board request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const updateBoard = async (
   req: FastifyRequest<BoardRequestType>,
   reply: FastifyReply
@@ -65,6 +90,13 @@ export const updateBoard = async (
   }
 };
 
+/**
+ * Delete board regarding provided id from database
+ * and send deleted board data
+ * @param req - fastify request with board request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const deleteBoard = async (
   req: FastifyRequest<BoardRequestType>,
   reply: FastifyReply

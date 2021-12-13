@@ -9,6 +9,12 @@ export type TaskRequestType = {
   Body: TaskInterface;
 };
 
+/**
+ * Send all tasks from database regarding provided boardId
+ * @param req - fastify request with task request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned.
+ */
 export const getAllTasks = async (
   req: FastifyRequest<TaskRequestType>,
   reply: FastifyReply
@@ -21,6 +27,12 @@ export const getAllTasks = async (
     .send(tasks);
 };
 
+/**
+ * Send task regarding provided boardId and taskId
+ * @param req - fastify request with task request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned.
+ */
 export const getTask = async (
   req: FastifyRequest<TaskRequestType>,
   reply: FastifyReply
@@ -39,6 +51,12 @@ export const getTask = async (
   }
 };
 
+/**
+ * Add task to database and send added task data
+ * @param req - fastify request with task request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const addTask = async (
   req: FastifyRequest<TaskRequestType>,
   reply: FastifyReply
@@ -59,6 +77,13 @@ export const addTask = async (
   }
 };
 
+/**
+ * Update task with parameters regarding provided boardId and taskId to database
+ * and send updated task data
+ * @param req - fastify request with task request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const updateTask = async (
   req: FastifyRequest<TaskRequestType>,
   reply: FastifyReply
@@ -78,6 +103,13 @@ export const updateTask = async (
   }
 };
 
+/**
+ * Delete task regarding provided taskId and boardId from database
+ * and send deleted task data
+ * @param req - fastify request with task request parameters
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
 export const deleteTask = async (
   req: FastifyRequest<TaskRequestType>,
   reply: FastifyReply

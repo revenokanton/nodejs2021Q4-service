@@ -1,10 +1,35 @@
-import fastify from 'fastify';
+import fastify, {
+  FastifyInstance,
+  RawRequestDefaultExpression,
+  RawReplyDefaultExpression,
+  FastifyLoggerInstance,
+} from 'fastify';
+import * as http from 'http';
 import { config } from './common/config';
 import userRouter from './services/users/user.router';
 import taskRouter from './services/task/task.router';
 import boardRouter from './services/board/board.router';
 
-export const createServer = async () => {
+/**
+ * Create an instance of the fastify server
+ * @returns server instance
+ */
+export const createServer = async (): Promise<
+  FastifyInstance<
+    http.Server,
+    RawRequestDefaultExpression<http.Server>,
+    RawReplyDefaultExpression<http.Server>,
+    FastifyLoggerInstance
+  > &
+    PromiseLike<
+      FastifyInstance<
+        http.Server,
+        RawRequestDefaultExpression<http.Server>,
+        RawReplyDefaultExpression<http.Server>,
+        FastifyLoggerInstance
+      >
+    >
+> => {
   const server = fastify({
     logger: true,
   });
@@ -20,7 +45,11 @@ export const createServer = async () => {
   return server;
 };
 
-const startServer = async () => {
+/**
+ * Start server on port from config object
+ * @returns Promise void is returned
+ */
+const startServer = async (): Promise<void> => {
   const server = await createServer();
 
   await server.listen(config.PORT);
