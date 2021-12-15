@@ -8,35 +8,21 @@
   },
   "parserOptions": {
     "project": "./tsconfig.json",
-    "sourceType": "module",
-    "ecmaVersion": 2021,
-    "ecmaFeatures": {
-      "impliedStrict": true
-    }
+    "tsconfigRootDir": "./"
   },
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "import"
   ],
   "settings": {
     "noInlineConfig": true,
-    "node": {
-      "tryExtensions": [".js", ".ts", ".d.ts"],
-      "moduleDirectory": ["node_modules", "src/"]
-    },
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".ts", ".d.ts"],
-        "moduleDirectory": ["node_modules", "src/"],
-        "typescript": {}
-      },
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": "."
-      }
+      "typescript": {}
     }
   },
   "extends": [
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
