@@ -11,6 +11,12 @@ export interface BoardInterface {
   columns: ColumnInterface[];
 }
 
+/**
+ * @class Board which implements BoardInterface
+ * @property id - The board's id
+ * @property title - The board's title
+ * @property columns - The board's columns
+ */
 export class Board implements BoardInterface {
   id: string;
 

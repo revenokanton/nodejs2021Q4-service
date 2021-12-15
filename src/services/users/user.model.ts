@@ -7,6 +7,13 @@ export interface UserInterface {
   password: string;
 }
 
+/**
+ * @class User which implements UserInterface
+ * @property id - The user's id
+ * @property name - The user's name
+ * @property login - The user's login
+ * @property password - The user's password
+ */
 export class User implements UserInterface {
   name: string;
 
@@ -28,6 +35,11 @@ export class User implements UserInterface {
     this.password = password;
   }
 
+  /**
+   * Returns user data without password
+   * @param user - user item from which password should be deleted
+   * @returns user item without password value
+   */
   static toResponse(user: UserInterface): Omit<UserInterface, 'password'> {
     const { id, name, login } = user;
     return { id, name, login };
