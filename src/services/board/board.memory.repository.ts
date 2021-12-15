@@ -4,14 +4,14 @@ let boards: BoardInterface[] = [];
 
 /**
  * Returns all boards from repository
- * @returns boards array from temporary db
+ * @returns Promise - to boards array from temporary db
  */
 const findAll = async (): Promise<BoardInterface[]> => boards;
 
 /**
  * Returns board from repository with provided id
  * @param id - id of the board
- * @returns board - with provided id
+ * @returns Promise to board with provided id
  * or undefined if no such board found
  */
 const findById = async (id: string): Promise<BoardInterface | undefined> =>
@@ -30,7 +30,7 @@ const addNewBoard = async (board: BoardInterface): Promise<void> => {
  * Updates board with provided id according to provided data
  * @param id - id of the board
  * @param data - object with parameters which should be updated in current board
- * @returns board with updated fields according to the transmitted id or null if no such board found
+ * @returns Promise to board with updated fields according to the transmitted id or null if no such board found
  */
 const updateBoard = async (
   id: string,
@@ -47,7 +47,7 @@ const updateBoard = async (
 /**
  * Delete board with provided id from temporary db
  * @param id - id of the board
- * @returns board which was deleted or null if no such board found
+ * @returns Promise to board which was deleted or null if no such board found
  */
 const deleteBoard = async (id: string): Promise<BoardInterface | null> => {
   const board = await findById(id);
