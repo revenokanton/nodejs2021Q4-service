@@ -50,7 +50,7 @@ const updateTask = async (
   );
   if (taskIndex !== -1) {
     tasks[taskIndex] = { ...tasks[taskIndex], ...data };
-    return tasks[taskIndex];
+    return tasks[taskIndex] as TaskInterface;
   }
   return null;
 };
@@ -82,7 +82,7 @@ const deleteTasksByBoardId = async (boardId: string): Promise<void> => {
 const deleteUserIdFromTasks = async (userId: string): Promise<void> => {
   tasks.forEach((task, index) => {
     if (task.userId === userId) {
-      tasks[index].userId = null;
+      (tasks[index] as TaskInterface).userId = null;
     }
   });
 };

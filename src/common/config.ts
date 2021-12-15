@@ -13,10 +13,16 @@ export type ConfigType = {
   AUTH_MODE?: boolean;
 };
 
+const port = 'PORT';
+const nodeEnv = 'NODE_ENV';
+const mongoConnection = 'MONGO_CONNECTION_STRING';
+const jwtSecretKey = 'JWT_SECRET_KEY';
+const authMode = 'AUTH_MODE';
+
 export const config: ConfigType = {
-  PORT: process.env.PORT || 4000,
-  NODE_ENV: process.env.NODE_ENV,
-  MONGO_CONNECTION_STRING: process.env.MONGO_CONNECTION_STRING,
-  JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
-  AUTH_MODE: process.env.AUTH_MODE === 'true',
+  PORT: process.env[port] || 4000,
+  NODE_ENV: process.env[nodeEnv],
+  MONGO_CONNECTION_STRING: process.env[mongoConnection],
+  JWT_SECRET_KEY: process.env[jwtSecretKey],
+  AUTH_MODE: process.env[authMode] === 'true',
 };

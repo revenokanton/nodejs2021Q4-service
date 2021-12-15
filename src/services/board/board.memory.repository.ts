@@ -39,7 +39,7 @@ const updateBoard = async (
   const boardIndex = boards.findIndex((i) => i.id === id);
   if (boardIndex !== -1) {
     boards[boardIndex] = { ...boards[boardIndex], ...data };
-    return boards[boardIndex];
+    return boards[boardIndex] as BoardInterface;
   }
   return null;
 };

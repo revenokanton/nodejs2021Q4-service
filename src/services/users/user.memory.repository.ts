@@ -38,7 +38,7 @@ const updateUser = async (
   const userIndex = users.findIndex((i) => i.id === id);
   if (userIndex !== -1) {
     users[userIndex] = { ...users[userIndex], ...data };
-    return users[userIndex];
+    return users[userIndex] as UserInterface;
   }
   return null;
 };
