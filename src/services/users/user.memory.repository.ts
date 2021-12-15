@@ -36,7 +36,7 @@ const updateUser = async (
   data: UserInterface
 ): Promise<UserInterface | null> => {
   const userIndex = users.findIndex((i) => i.id === id);
-  if (userIndex !== -1) {
+  if (users[userIndex]) {
     users[userIndex] = { ...users[userIndex], ...data };
     return users[userIndex];
   }

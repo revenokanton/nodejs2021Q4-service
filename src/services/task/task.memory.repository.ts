@@ -48,7 +48,7 @@ const updateTask = async (
   const taskIndex = tasks.findIndex(
     (i) => i.id === taskId && i.boardId === boardId
   );
-  if (taskIndex !== -1) {
+  if (tasks[taskIndex]) {
     tasks[taskIndex] = { ...tasks[taskIndex], ...data };
     return tasks[taskIndex];
   }
@@ -81,7 +81,7 @@ const deleteTasksByBoardId = async (boardId: string): Promise<void> => {
  */
 const deleteUserIdFromTasks = async (userId: string): Promise<void> => {
   tasks.forEach((task, index) => {
-    if (task.userId === userId) {
+    if (tasks[index] && task.userId === userId) {
       tasks[index].userId = null;
     }
   });

@@ -11,12 +11,12 @@ export type BoardRequestType = {
 
 /**
  * Send all boards from database
- * @param req - fastify request
+ * @param _ - fastify request
  * @param reply fastify reply
  * @returns Promise void is returned
  */
 export const getAllBoards = async (
-  req: FastifyRequest,
+  _: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
   const boards = await boardRepo.findAll();
