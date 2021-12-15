@@ -12,7 +12,7 @@ import boardRouter from './services/board/board.router';
 
 /**
  * Create an instance of the fastify server
- * @returns server instance
+ * @returns Promise to server instance
  */
 export const createServer = async (): Promise<
   FastifyInstance<
