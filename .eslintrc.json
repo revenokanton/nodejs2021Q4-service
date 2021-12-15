@@ -20,13 +20,20 @@
   ],
   "settings": {
     "noInlineConfig": true,
+    "node": {
+      "tryExtensions": [".js", ".ts", ".d.ts"],
+      "moduleDirectory": ["node_modules", "src/"]
+    },
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".ts"]
+        "extensions": [".js", ".ts", ".d.ts"],
+        "moduleDirectory": ["node_modules", "src/"],
+        "typescript": {}
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "."
       }
-    },
-    "node": {
-      "tryExtensions": [".js", ".ts"]
     }
   },
   "extends": [
