@@ -16,7 +16,6 @@
     "import"
   ],
   "settings": {
-    "noInlineConfig": true,
     "import/resolver": {
       "typescript": {}
     }
