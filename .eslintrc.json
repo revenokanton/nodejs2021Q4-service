@@ -22,10 +22,11 @@
     "noInlineConfig": true,
     "import/resolver": {
       "node": {
-        "paths": ["src"],
-        "extensions": [".js", ".ts"],
-        "resolvePaths": ["node_modules/@types"]
+        "extensions": [".js", ".ts"]
       }
+    },
+    "node": {
+      "tryExtensions": [".js", ".ts"]
     }
   },
   "extends": [
