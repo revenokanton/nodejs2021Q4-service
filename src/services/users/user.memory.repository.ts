@@ -6,14 +6,14 @@ let users: UserInterface[] = [];
  * Returns all users from temporary db
  * @returns users array from temporary db
  */
-const findAll = (): UserInterface[] => users;
+const findAll = async (): Promise<UserInterface[]> => users;
 
 /**
  * Returns user with provided id from temporary db
  * @param id - id of the user
  * @returns user according to the transmitted id or undefined if no such user found
  */
-const findById = (id: string): UserInterface | undefined =>
+const findById = async (id: string): Promise<UserInterface | undefined> =>
   users.find((i) => i.id === id);
 
 /**
@@ -21,7 +21,7 @@ const findById = (id: string): UserInterface | undefined =>
  * @param user - object with user fields
  * @returns Nothing is returned.
  */
-const addNewUser = (user: UserInterface): void => {
+const addNewUser = async (user: UserInterface): Promise<void> => {
   users.push(user);
 };
 
@@ -31,7 +31,10 @@ const addNewUser = (user: UserInterface): void => {
  * @param data - object with parameters which should be updated in current user
  * @returns user with updated fields according to the transmitted id or null if no such user found
  */
-const updateUser = (id: string, data: UserInterface): UserInterface | null => {
+const updateUser = async (
+  id: string,
+  data: UserInterface
+): Promise<UserInterface | null> => {
   const userIndex = users.findIndex((i) => i.id === id);
   if (userIndex !== -1) {
     users[userIndex] = { ...users[userIndex], ...data };
@@ -45,8 +48,8 @@ const updateUser = (id: string, data: UserInterface): UserInterface | null => {
  * @param id - id of the user
  * @returns user which was deleted or null if no such user found
  */
-const deleteUser = (id: string): UserInterface | null => {
-  const user = findById(id);
+const deleteUser = async (id: string): Promise<UserInterface | null> => {
+  const user = await findById(id);
   if (user) {
     users = [...users.filter((i) => i.id !== id)];
     return user;

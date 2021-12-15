@@ -7,7 +7,7 @@ let tasks: TaskInterface[] = [];
  * @param boardId - ID of the board to which the tasks belong
  * @returns tasks array with provided boardId from temporary db
  */
-const findAll = (boardId: string): TaskInterface[] =>
+const findAll = async (boardId: string): Promise<TaskInterface[]> =>
   tasks.filter((i) => i.boardId === boardId);
 
 /**
@@ -17,7 +17,10 @@ const findAll = (boardId: string): TaskInterface[] =>
  * @returns task with provided boardId and taskId
  * or undefined if no such task found
  */
-const findById = (taskId: string, boardId: string): TaskInterface | undefined =>
+const findById = async (
+  taskId: string,
+  boardId: string
+): Promise<TaskInterface | undefined> =>
   tasks.find((i) => i.id === taskId && i.boardId === boardId);
 
 /**
@@ -25,7 +28,7 @@ const findById = (taskId: string, boardId: string): TaskInterface | undefined =>
  * @param task - object with task fields
  * @returns Nothing is returned.
  */
-const addNewTask = (task: TaskInterface): void => {
+const addNewTask = async (task: TaskInterface): Promise<void> => {
   tasks.push(task);
 };
 
@@ -37,11 +40,11 @@ const addNewTask = (task: TaskInterface): void => {
  * @returns task with updated fields according to the transmitted taskId and boardId
  * or null if no such task found
  */
-const updateTask = (
+const updateTask = async (
   taskId: string,
   boardId: string,
   data: TaskInterface
-): TaskInterface | null => {
+): Promise<TaskInterface | null> => {
   const taskIndex = tasks.findIndex(
     (i) => i.id === taskId && i.boardId === boardId
   );
@@ -56,28 +59,27 @@ const updateTask = (
  * Deletes task from temporary db with provided taskId and boardId
  * @param taskId - id of the task
  * @param boardId - ID of the board to which the tasks belong
- * @returns task which was deleted from the repository
- * or null if no such task found
+ * @returns Promise void is returned
  */
-const deleteTask = (taskId: string, boardId: string): void => {
+const deleteTask = async (taskId: string, boardId: string): Promise<void> => {
   tasks = tasks.filter((i) => i.id !== taskId || i.boardId !== boardId);
 };
 
 /**
  * Deletes all tasks from temporary db with provided boardId
  * @param boardId - ID of the board to which the tasks belong
- * @returns Nothing is returned.
+ * @returns Promise void is returned
  */
-const deleteTasksByBoardId = (boardId: string): void => {
+const deleteTasksByBoardId = async (boardId: string): Promise<void> => {
   tasks = tasks.filter((i) => i.boardId !== boardId);
 };
 
 /**
  * Set userId to null for all tasks with provided userId
  * @param userId - ID of the user
- * @returns Nothing is returned.
+ * @returns Promise void is returned
  */
-const deleteUserIdFromTasks = (userId: string): void => {
+const deleteUserIdFromTasks = async (userId: string): Promise<void> => {
   tasks.forEach((task, index) => {
     if (task.userId === userId) {
       tasks[index].userId = null;
