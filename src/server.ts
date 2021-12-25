@@ -9,6 +9,8 @@ import { config } from './common/config';
 import userRouter from './services/users/user.router';
 import taskRouter from './services/task/task.router';
 import boardRouter from './services/board/board.router';
+import { setUpErrorHandlers } from './services/errors/errors.service';
+import logger from './services/logger/logger.module';
 
 /**
  * Create an instance of the fastify server
@@ -31,7 +33,7 @@ export const createServer = async (): Promise<
     >
 > => {
   const server = fastify({
-    logger: true,
+    logger,
   });
 
   server.register(userRouter);
@@ -54,10 +56,7 @@ const startServer = async (): Promise<void> => {
 
   await server.listen(config.PORT);
 
-  process.on('unhandledRejection', (err) => {
-    server.log.error(err);
-    process.exit(1);
-  });
+  await setUpErrorHandlers();
 };
 
 startServer();
