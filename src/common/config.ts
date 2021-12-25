@@ -22,7 +22,6 @@ const jwtSecretKey = 'JWT_SECRET_KEY';
 const authMode = 'AUTH_MODE';
 const logPath = 'LOG_PATH';
 const logLevel = 'LOG_LEVEL';
-
 export const config: ConfigType = {
   PORT: process.env[port] || 4000,
   NODE_ENV: process.env[nodeEnv],
