@@ -58,14 +58,28 @@ const logger: Logger = pino(
   transports
 );
 
-export const logLoggerLevel = () => {
-  console.log(`Logging level ${logger.level}`);
-};
-
+/**
+ * Log server start action
+ * @param port - app port to start
+ * @return nothing is returned
+ */
 export const logServerStart = (port: string | number) => {
   console.log(`Server starts on port ${port}`);
 };
 
+/**
+ * Log current logger level
+ * @return nothing is returned
+ */
+export const logLoggerLevel = () => {
+  console.log(`Logging level ${logger.level}`);
+};
+
+/**
+ * Log request body
+ * @param request - Fastify request
+ * @return nothing is returned
+ */
 export const logRequestBodyInfo = (request: FastifyRequest) => {
   logger.info(
     {
