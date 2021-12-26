@@ -61,23 +61,6 @@ const logger: Logger = pino(
 );
 
 /**
- * Log server start action
- * @param port - app port to start
- * @return nothing is returned
- */
-export const logServerStart = (port: string | number) => {
-  console.log(`Server starts on port ${port}`);
-};
-
-/**
- * Log current logger level
- * @return nothing is returned
- */
-export const logLoggerLevel = () => {
-  console.log(`Logging level ${logger.level}`);
-};
-
-/**
  * Log request body
  * @param request - Fastify request
  * @return nothing is returned
@@ -90,6 +73,23 @@ export const logRequestBodyInfo = (request: FastifyRequest) => {
     },
     'Parsed request body'
   );
+};
+
+/**
+ * Log server start action
+ * @param port - app port to start
+ * @return nothing is returned
+ */
+export const logServerStart = (port: string | number) => {
+  logger.info(`Server starts on port ${port}`);
+};
+
+/**
+ * Log current logger level
+ * @return nothing is returned
+ */
+export const logLoggerLevel = () => {
+  logger.info(`Logging level ${logger.level}`);
 };
 
 export default logger;
