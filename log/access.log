@@ -1,6 +1,0 @@
-{"level":30,"time":1640521235966,"pid":20561,"hostname":"Antons-MacBook-Pro-2.local","msg":"Logging level trace"}
-{"level":30,"time":1640521235972,"pid":20561,"hostname":"Antons-MacBook-Pro-2.local","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640521235972,"pid":20561,"hostname":"Antons-MacBook-Pro-2.local","msg":"Server starts on port 4000"}
-{"level":30,"time":1640521260096,"pid":20568,"hostname":"Antons-MacBook-Pro-2.local","msg":"Logging level trace"}
-{"level":30,"time":1640521260106,"pid":20568,"hostname":"Antons-MacBook-Pro-2.local","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640521260106,"pid":20568,"hostname":"Antons-MacBook-Pro-2.local","msg":"Server starts on port 4000"}
