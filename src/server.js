@@ -1,6 +1,21 @@
-const { PORT } = require('./common/config');
-const app = require('./app');
+const fastify = require('fastify')({
+  logger: true,
+});
 
-app.listen(PORT, () =>
-  console.log(`App is running on http://localhost:${PORT}`)
-);
+const { PORT } = require('./common/config');
+
+const routes = require('./routes');
+
+routes.forEach((route) => {
+  fastify.route(route);
+});
+
+const start = async () => {
+  try {
+    await fastify.listen(PORT);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+start();
