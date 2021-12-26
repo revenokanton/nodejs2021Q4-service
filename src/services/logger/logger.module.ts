@@ -10,6 +10,7 @@ const transports = pino.transport(<TransportMultiOptions>{
       options: {
         destination: `${config.LOG_PATH}/access.log`,
         ignore: 'pid,hostname',
+        levelFirst: true,
         colorize: true,
       },
     },
@@ -20,6 +21,7 @@ const transports = pino.transport(<TransportMultiOptions>{
         destination: `${config.LOG_PATH}/error.log`,
         ignore: 'pid,hostname',
         colorize: true,
+        levelFirst: true,
       },
     },
   ],
