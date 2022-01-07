@@ -1,0 +1,9 @@
+node_modules
+.vscode
+.idea
+log
+README.md
+dist
+.env
+.github
+test
