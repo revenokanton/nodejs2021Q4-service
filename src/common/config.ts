@@ -28,6 +28,6 @@ export const config: ConfigType = {
   MONGO_CONNECTION_STRING: process.env[mongoConnection],
   JWT_SECRET_KEY: process.env[jwtSecretKey],
   AUTH_MODE: process.env[authMode] === 'true',
-  LOG_PATH: process.env[logPath] || './log',
+  LOG_PATH: process.env[logPath] || './logs',
   LOG_LEVEL: process.env[logLevel] || 'trace',
 };

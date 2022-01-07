@@ -3,7 +3,10 @@
 
 # Include application files
 !src
+!log
+!db
 !tsconfig.json
+!.env
 
 # Include build files
 !package.json
