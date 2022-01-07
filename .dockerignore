@@ -1,9 +1,10 @@
-node_modules
-.vscode
-.idea
-log
-README.md
-dist
-.env
-.github
-test
+# Ignore everything
+*
+
+# Include application files
+!src
+!tsconfig.json
+
+# Include build files
+!package.json
+!package-lock.json
