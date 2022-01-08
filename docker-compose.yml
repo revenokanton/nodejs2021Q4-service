@@ -28,6 +28,7 @@ services:
       - "${PORT}:${CONTAINER_PORT}"
     working_dir: /app
     volumes:
+      - app:/app/node_modules
       - ./:/app
       - ../logs:/logs
     restart: always
@@ -37,6 +38,7 @@ services:
       - net
 volumes:
   postgres_db:
+  app:
 networks:
   net:
     driver: bridge
