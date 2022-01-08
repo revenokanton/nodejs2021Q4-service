@@ -21,7 +21,7 @@ services:
   app:
     build:
       context: ./
-    image: server
+    image: server:16.13-alpine
     container_name: server_container
     env_file: .env
     ports:
