@@ -1,7 +1,6 @@
 # First Stage : to install and build dependences
 FROM node:16.13-alpine AS builder
 WORKDIR /app
-EXPOSE 4000
 
 COPY package*.json .
 
