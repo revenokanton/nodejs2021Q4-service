@@ -29,7 +29,12 @@ For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 ## Running application using Docker
 - Docker and Docker Compose installation required.
-- To run containerized application please use command below:
+- To run containerized application please use commands below:
+
+```
+npm install
+```
+After enter:
 
 ```
 docker-compose up
