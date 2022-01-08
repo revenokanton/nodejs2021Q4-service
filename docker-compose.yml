@@ -1,11 +1,37 @@
 version: "3.7"
 services:
-  api:
-    container_name: fastify-typescript
+  db:
+    build:
+      context: ./db
+    image: db
+    env_file: .env
+    container_name: db_container
+    working_dir: /db/pgdata
+    volumes:
+      - ./:/db/pgdata
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    networks:
+      - net
+  app:
+    build:
+      context: ./
+    image: server
+    container_name: server_container
     ports:
       - "4000:4000"
-    build:
-      dockerfile: Dockerfile
-      context: .
-    env_file:
-      - .env
+    working_dir: /app
+    volumes:
+      - app-volume/:/app/logs
+    restart: always
+    links:
+      - db
+    networks:
+      - net
+volumes:
+  app-volume:
+networks:
+  net:
+    driver: bridge
+    name: net

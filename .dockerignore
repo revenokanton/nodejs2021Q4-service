@@ -3,7 +3,7 @@
 
 # Include application files
 !src
-!log
+!logs
 !db
 !tsconfig.json
 !.env
