@@ -8,7 +8,7 @@ services:
     container_name: db_container
     working_dir: /db/pgdata
     volumes:
-      - db-volume/:/db/pgdata
+      - ./:/db/pgdata
     restart: always
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
@@ -21,18 +21,16 @@ services:
     container_name: server_container
     env_file: .env
     ports:
-      - "4000:4000"
+      - "${PORT}:${CONTAINER_PORT}"
     working_dir: /app
     volumes:
-      - app-volume/:/app/logs
+      - ./:/app
+      - ../logs:/logs
     restart: always
     links:
       - db
     networks:
       - net
-volumes:
-  app-volume:
-  db-volume:
 networks:
   net:
     driver: bridge
