@@ -1,4 +1,6 @@
-import { UserInterface } from './user.model';
+import { getManager, getRepository } from 'typeorm';
+
+import { User, UserInterface } from './user.model';
 
 let users: UserInterface[] = [];
 
@@ -6,7 +8,7 @@ let users: UserInterface[] = [];
  * Returns all users from temporary db
  * @returns Promise to users array from temporary db
  */
-const findAll = async (): Promise<UserInterface[]> => users;
+const findAll = async (): Promise<UserInterface[]> => getManager().find(User);
 
 /**
  * Returns user with provided id from temporary db
@@ -14,16 +16,15 @@ const findAll = async (): Promise<UserInterface[]> => users;
  * @returns Promise to user according to the transmitted id or undefined if no such user found
  */
 const findById = async (id: string): Promise<UserInterface | undefined> =>
-  users.find((i) => i.id === id);
+  getRepository(User).findOne(id);
 
 /**
  * Add new user to the users temporary db
  * @param user - object with user fields
  * @returns Promise void is returned
  */
-const addNewUser = async (user: UserInterface): Promise<void> => {
-  users.push(user);
-};
+const addNewUser = async (user: UserInterface): Promise<User> =>
+  getRepository(User).save(user);
 
 /**
  * Updates user with provided id according to provided data
@@ -35,10 +36,10 @@ const updateUser = async (
   id: string,
   data: UserInterface
 ): Promise<UserInterface | null> => {
-  const userIndex = users.findIndex((i) => i.id === id);
-  if (userIndex !== -1) {
-    users[userIndex] = { ...users[userIndex], ...data };
-    return users[userIndex] as UserInterface;
+  const existingUser = await getRepository(User).findOne(id);
+  if (existingUser) {
+    const userToUpdate = { ...existingUser, ...data };
+    return getRepository(User).save(userToUpdate);
   }
   return null;
 };
@@ -49,10 +50,10 @@ const updateUser = async (
  * @returns Promise to user which was deleted or null if no such user found
  */
 const deleteUser = async (id: string): Promise<UserInterface | null> => {
-  const user = await findById(id);
-  if (user) {
+  const userToDelete = await getRepository(User).findOne(id);
+  if (userToDelete) {
     users = [...users.filter((i) => i.id !== id)];
-    return user;
+    return getRepository(User).remove(userToDelete);
   }
   return null;
 };

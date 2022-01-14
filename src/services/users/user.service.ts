@@ -59,8 +59,7 @@ export const addUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
 ) => {
-  const user = new User(req.body);
-  await userRepo.addNewUser(user);
+  const user = await userRepo.addNewUser(req.body);
   reply
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')

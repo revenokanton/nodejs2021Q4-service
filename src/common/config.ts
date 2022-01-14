@@ -13,6 +13,10 @@ export type ConfigType = {
   AUTH_MODE?: boolean;
   LOG_PATH?: string;
   LOG_LEVEL?: string;
+  DB_PORT?: number;
+  DB_NAME?: string;
+  DB_PASSWORD?: string;
+  DB_USER?: string;
 };
 
 const port = 'PORT';
@@ -22,6 +26,10 @@ const jwtSecretKey = 'JWT_SECRET_KEY';
 const authMode = 'AUTH_MODE';
 const logPath = 'LOG_PATH';
 const logLevel = 'LOG_LEVEL';
+const dbPort = 'DB_PORT';
+const dbName = 'DB_NAME';
+const dbPassword = 'DB_PASSWORD';
+const dbUser = 'DB_USER';
 
 export const config: ConfigType = {
   PORT: process.env[port] || 4000,
@@ -31,4 +39,11 @@ export const config: ConfigType = {
   AUTH_MODE: process.env[authMode] === 'true',
   LOG_PATH: process.env[logPath] || './logs',
   LOG_LEVEL: process.env[logLevel] || 'trace',
+  DB_PORT: process.env[dbPort]
+    ? // @ts-ignore
+      parseInt(process.env[dbPort], 10)
+    : 5432,
+  DB_NAME: process.env[dbName],
+  DB_PASSWORD: process.env[dbPassword],
+  DB_USER: process.env[dbUser],
 };
