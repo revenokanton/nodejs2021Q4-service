@@ -1,4 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from '../users/user.model';
 
 export interface TaskInterface {
   id: string;
@@ -20,36 +27,36 @@ export interface TaskInterface {
  * @property boardId - The board id to which the task is attached
  * @property columnId - The column id to which the task is attached
  */
-export class Task implements TaskInterface {
+@Entity()
+export class Task {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   title: string;
 
+  @Column()
   description: string;
 
+  @Column()
   order: number;
 
-  userId?: string | null;
+  @ManyToOne(() => User, {
+    deferrable: 'INITIALLY DEFERRED',
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({
+    name: 'userId',
+    referencedColumnName: 'id',
+  })
+  user: User;
 
-  boardId?: string | null;
+  @Column({ type: 'varchar', nullable: true, default: null })
+  userId: string | null;
 
-  columnId?: string | null;
+  @Column({ type: 'varchar', nullable: true, default: null })
+  boardId: string | null;
 
-  constructor({
-    id = uuidv4(),
-    title = 'TASK',
-    description = 'description',
-    order = 0,
-    userId,
-    boardId,
-    columnId,
-  }: TaskInterface) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.order = order;
-    this.userId = userId || null;
-    this.boardId = boardId || null;
-    this.columnId = columnId || null;
-  }
+  @Column({ type: 'varchar', nullable: true, default: null })
+  columnId: string | null;
 }

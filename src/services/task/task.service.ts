@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Task, TaskInterface } from './task.model';
+import { TaskInterface } from './task.model';
 import taskService from './task.memory.repository';
 import boardMemory from '../board/board.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
@@ -66,8 +66,7 @@ export const addTask = async (
 
   if (board) {
     const taskData = { ...req.body, boardId };
-    const task = new Task(taskData);
-    await taskService.addNewTask(task);
+    const task = await taskService.addNewTask(taskData);
     reply
       .code(201)
       .header('Content-Type', 'application/json; charset=utf-8')
@@ -90,8 +89,7 @@ export const updateTask = async (
 ): Promise<void> => {
   const taskId = req?.params?.taskId;
   const boardId = req?.params?.boardId;
-  const updatedData = new Task(req.body);
-  const task = await taskService.updateTask(taskId, boardId, updatedData);
+  const task = await taskService.updateTask(taskId, boardId, req.body);
 
   if (task) {
     reply
@@ -116,9 +114,8 @@ export const deleteTask = async (
 ): Promise<void> => {
   const taskId = req?.params?.taskId;
   const boardId = req?.params?.boardId;
-  const task = await taskService.findById(taskId, boardId);
+  const task = await taskService.deleteTask(taskId, boardId);
   if (task) {
-    await taskService.deleteTask(taskId, boardId);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')

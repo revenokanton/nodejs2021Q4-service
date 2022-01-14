@@ -1,6 +1,5 @@
-import { TaskInterface } from './task.model';
-
-let tasks: TaskInterface[] = [];
+import { getRepository } from 'typeorm';
+import { Task, TaskInterface } from './task.model';
 
 /**
  * Returns all tasks from temporary db with provided boardId
@@ -8,7 +7,7 @@ let tasks: TaskInterface[] = [];
  * @returns Promise to tasks array with provided boardId from temporary db
  */
 const findAll = async (boardId: string): Promise<TaskInterface[]> =>
-  tasks.filter((i) => i.boardId === boardId);
+  getRepository(Task).find({ boardId });
 
 /**
  * Returns task from temporary db with provided taskId and boardId
@@ -21,16 +20,15 @@ const findById = async (
   taskId: string,
   boardId: string
 ): Promise<TaskInterface | undefined> =>
-  tasks.find((i) => i.id === taskId && i.boardId === boardId);
+  getRepository(Task).findOne({ id: taskId, boardId });
 
 /**
  * Add new task to the tasks from temporary db
  * @param task - object with task fields
  * @returns Promise void is returned
  */
-const addNewTask = async (task: TaskInterface): Promise<void> => {
-  tasks.push(task);
-};
+const addNewTask = async (task: TaskInterface): Promise<Task> =>
+  getRepository(Task).save(task);
 
 /**
  * Updates task from temporary db with provided taskId and boardId
@@ -45,12 +43,13 @@ const updateTask = async (
   boardId: string,
   data: TaskInterface
 ): Promise<TaskInterface | null> => {
-  const taskIndex = tasks.findIndex(
-    (i) => i.id === taskId && i.boardId === boardId
-  );
-  if (taskIndex !== -1) {
-    tasks[taskIndex] = { ...tasks[taskIndex], ...data };
-    return tasks[taskIndex] as TaskInterface;
+  const existingTask = await getRepository(Task).findOne({
+    id: taskId,
+    boardId,
+  });
+  if (existingTask) {
+    const taskToUpdate = { ...existingTask, ...data };
+    return getRepository(Task).save(taskToUpdate);
   }
   return null;
 };
@@ -61,8 +60,19 @@ const updateTask = async (
  * @param boardId - ID of the board to which the tasks belong
  * @returns Promise void is returned
  */
-const deleteTask = async (taskId: string, boardId: string): Promise<void> => {
-  tasks = tasks.filter((i) => i.id !== taskId || i.boardId !== boardId);
+const deleteTask = async (
+  taskId: string,
+  boardId: string
+): Promise<TaskInterface | null> => {
+  const taskToDelete = await getRepository(Task).findOne({
+    id: taskId,
+    boardId,
+  });
+
+  if (taskToDelete) {
+    return getRepository(Task).remove(taskToDelete);
+  }
+  return null;
 };
 
 /**
@@ -70,21 +80,14 @@ const deleteTask = async (taskId: string, boardId: string): Promise<void> => {
  * @param boardId - ID of the board to which the tasks belong
  * @returns Promise void is returned
  */
-const deleteTasksByBoardId = async (boardId: string): Promise<void> => {
-  tasks = tasks.filter((i) => i.boardId !== boardId);
-};
-
-/**
- * Set userId to null for all tasks with provided userId
- * @param userId - ID of the user
- * @returns Promise void is returned
- */
-const deleteUserIdFromTasks = async (userId: string): Promise<void> => {
-  tasks.forEach((task, index) => {
-    if (task.userId === userId) {
-      (tasks[index] as TaskInterface).userId = null;
-    }
-  });
+const deleteTasksByBoardId = async (
+  boardId: string
+): Promise<TaskInterface[] | null> => {
+  const tasksToDelete = await getRepository(Task).find({ boardId });
+  if (tasksToDelete.length) {
+    return getRepository(Task).remove(tasksToDelete);
+  }
+  return null;
 };
 
 export default {
@@ -94,5 +97,4 @@ export default {
   updateTask,
   deleteTask,
   deleteTasksByBoardId,
-  deleteUserIdFromTasks,
 };

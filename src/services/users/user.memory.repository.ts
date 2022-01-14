@@ -2,8 +2,6 @@ import { getManager, getRepository } from 'typeorm';
 
 import { User, UserInterface } from './user.model';
 
-let users: UserInterface[] = [];
-
 /**
  * Returns all users from temporary db
  * @returns Promise to users array from temporary db
@@ -52,7 +50,6 @@ const updateUser = async (
 const deleteUser = async (id: string): Promise<UserInterface | null> => {
   const userToDelete = await getRepository(User).findOne(id);
   if (userToDelete) {
-    users = [...users.filter((i) => i.id !== id)];
     return getRepository(User).remove(userToDelete);
   }
   return null;
