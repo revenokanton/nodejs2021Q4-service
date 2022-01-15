@@ -19,6 +19,8 @@ import logger, {
 } from './services/logger/logger.module';
 import { User } from './services/users/user.model';
 import { Task } from './services/task/task.model';
+import { Board } from './services/board/board.model';
+import { BoardColumn } from './services/column/column.model';
 
 /**
  * Create an instance of the fastify server
@@ -82,7 +84,7 @@ const startServer = async (): Promise<void> => {
     password: config.DB_PASSWORD,
     database: config.DB_NAME,
     synchronize: true,
-    entities: [User, Task],
+    entities: [User, Task, Board, BoardColumn],
   }).then(async () => {
     const server = await createServer();
 

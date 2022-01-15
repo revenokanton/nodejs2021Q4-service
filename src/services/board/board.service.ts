@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Board, BoardInterface } from './board.model';
+import { BoardInterface } from './board.model';
 import boardRepo from './board.memory.repository';
-import taskRepo from '../task/task.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
 
 export type BoardRequestType = {
@@ -58,8 +57,7 @@ export const addBoard = async (
   req: FastifyRequest<BoardRequestType>,
   reply: FastifyReply
 ): Promise<void> => {
-  const board = new Board(req.body);
-  await boardRepo.addNewBoard(board);
+  const board = await boardRepo.addNewBoard(req.body);
   reply
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')
@@ -104,7 +102,6 @@ export const deleteBoard = async (
   const { id } = req.params;
   const board = await boardRepo.deleteBoard(id);
   if (board) {
-    await taskRepo.deleteTasksByBoardId(id);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')

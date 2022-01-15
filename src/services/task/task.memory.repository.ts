@@ -28,7 +28,11 @@ const findById = async (
  * @returns Promise void is returned
  */
 const addNewTask = async (task: TaskInterface): Promise<Task> =>
-  getRepository(Task).save(task);
+  getRepository(Task).save(
+    JSON.parse(JSON.stringify(task), (_key, value) =>
+      value === null || value === '' ? undefined : value
+    )
+  );
 
 /**
  * Updates task from temporary db with provided taskId and boardId
@@ -47,8 +51,11 @@ const updateTask = async (
     id: taskId,
     boardId,
   });
+  const parsedData = JSON.parse(JSON.stringify(data), (_key, value) =>
+    value === null || value === '' ? undefined : value
+  );
   if (existingTask) {
-    const taskToUpdate = { ...existingTask, ...data };
+    const taskToUpdate = { ...existingTask, ...parsedData };
     return getRepository(Task).save(taskToUpdate);
   }
   return null;
@@ -75,26 +82,10 @@ const deleteTask = async (
   return null;
 };
 
-/**
- * Deletes all tasks from temporary db with provided boardId
- * @param boardId - ID of the board to which the tasks belong
- * @returns Promise void is returned
- */
-const deleteTasksByBoardId = async (
-  boardId: string
-): Promise<TaskInterface[] | null> => {
-  const tasksToDelete = await getRepository(Task).find({ boardId });
-  if (tasksToDelete.length) {
-    return getRepository(Task).remove(tasksToDelete);
-  }
-  return null;
-};
-
 export default {
   findAll,
   findById,
   addNewTask,
   updateTask,
   deleteTask,
-  deleteTasksByBoardId,
 };

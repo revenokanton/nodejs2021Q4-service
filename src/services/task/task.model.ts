@@ -6,6 +6,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from '../users/user.model';
+import { Board } from '../board/board.model';
+import { BoardColumn } from '../column/column.model';
 
 export interface TaskInterface {
   id: string;
@@ -54,9 +56,29 @@ export class Task {
   @Column({ type: 'varchar', nullable: true, default: null })
   userId: string | null;
 
+  @ManyToOne(() => Board, {
+    deferrable: 'INITIALLY DEFERRED',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'boardId',
+    referencedColumnName: 'id',
+  })
   @Column({ type: 'varchar', nullable: true, default: null })
   boardId: string | null;
 
-  @Column({ type: 'varchar', nullable: true, default: null })
+  @ManyToOne(() => BoardColumn, {
+    deferrable: 'INITIALLY DEFERRED',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'columnId',
+    referencedColumnName: 'id',
+  })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    default: null,
+  })
   columnId: string | null;
 }
