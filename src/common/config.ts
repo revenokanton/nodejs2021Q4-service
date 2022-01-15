@@ -13,7 +13,7 @@ export type ConfigType = {
   AUTH_MODE?: boolean;
   LOG_PATH?: string;
   LOG_LEVEL?: string;
-  DB_PORT?: number;
+  DB_PORT: string | number;
   DB_NAME?: string;
   DB_PASSWORD?: string;
   DB_USER?: string;
@@ -39,10 +39,7 @@ export const config: ConfigType = {
   AUTH_MODE: process.env[authMode] === 'true',
   LOG_PATH: process.env[logPath] || './logs',
   LOG_LEVEL: process.env[logLevel] || 'trace',
-  DB_PORT: process.env[dbPort]
-    ? // @ts-ignore
-      parseInt(process.env[dbPort], 10)
-    : 5432,
+  DB_PORT: process.env[dbPort] || 5432,
   DB_NAME: process.env[dbName],
   DB_PASSWORD: process.env[dbPassword],
   DB_USER: process.env[dbUser],
