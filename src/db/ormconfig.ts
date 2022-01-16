@@ -8,7 +8,7 @@ export default {
   username: config.DB_USER,
   password: config.DB_PASSWORD,
   database: config.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   dropSchema: true,
   cache: false,
   migrationsRun: true,
@@ -18,8 +18,8 @@ export default {
     'src/services/task/task.model.ts',
     'src/services/column/column.model.ts',
   ],
-  migrations: ['src/db/migrations/*{.ts}'],
+  migrations: ['migrations/*{.ts}'],
   cli: {
-    migrationsDir: 'src/db/migrations',
+    migrationsDir: 'migrations',
   },
 } as ConnectionOptions;
