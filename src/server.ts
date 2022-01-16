@@ -17,6 +17,7 @@ import logger, {
   logRequestBodyInfo,
   logServerStart,
 } from './services/logger/logger.module';
+import ormconfig from './db/ormconfig';
 
 /**
  * Create an instance of the fastify server
@@ -72,21 +73,9 @@ export const createServer = async (): Promise<
  * @returns Promise void is returned
  */
 const startServer = async (): Promise<void> => {
-  await createConnection({
-    type: 'postgres',
-    host: 'db_container',
-    port: config.DB_PORT as number,
-    username: config.DB_USER,
-    password: config.DB_PASSWORD,
-    database: config.DB_NAME,
-    entities: [
-      'src/services/users/user.model.ts',
-      'src/services/board/board.model.ts',
-      'src/services/task/task.model.ts',
-      'src/services/column/column.model.ts',
-    ],
-    synchronize: true,
-  }).then(async () => {
+  await createConnection(ormconfig).then(async (connection) => {
+    await connection.runMigrations();
+
     const server = await createServer();
 
     await server.listen(config.PORT, '0.0.0.0', () => {
