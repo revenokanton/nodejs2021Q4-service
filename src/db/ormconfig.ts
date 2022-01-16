@@ -9,7 +9,7 @@ export default {
   password: config.DB_PASSWORD,
   database: config.DB_NAME,
   synchronize: false,
-  dropSchema: true,
+  logging: true,
   cache: false,
   migrationsRun: true,
   entities: [
@@ -18,8 +18,8 @@ export default {
     'src/services/task/task.model.ts',
     'src/services/column/column.model.ts',
   ],
-  migrations: ['migrations/*{.ts}'],
+  migrations: ['src/db/migrations/*.ts'],
   cli: {
-    migrationsDir: 'migrations',
+    migrationsDir: 'src/db/migrations',
   },
 } as ConnectionOptions;
