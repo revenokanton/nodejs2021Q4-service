@@ -18,6 +18,7 @@ export type ConfigType = {
   DB_PASSWORD?: string;
   DB_USER?: string;
   DB_HOST?: string;
+  JWT_SECRET?: string;
 };
 
 const port = 'PORT';

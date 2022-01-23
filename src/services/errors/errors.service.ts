@@ -22,6 +22,29 @@ export const handleNotFound = async (
 };
 
 /**
+ * Send error object with error message from database
+ * @param reply fastify reply
+ * @returns Promise void is returned
+ */
+export const handleUnauthorized = async (
+  reply: FastifyReply
+): Promise<void> => {
+  reply
+    .code(403)
+    .header('Content-Type', 'application/json; charset=utf-8')
+    .send({ error: errorMessages.UNAUTHORIZED });
+};
+
+export const handleInvalidToken = async (
+  reply: FastifyReply
+): Promise<void> => {
+  reply
+    .code(401)
+    .header('Content-Type', 'application/json; charset=utf-8')
+    .send({ error: errorMessages.INVALID_TOKEN });
+};
+
+/**
  * Set up uncaughtException and unhandledRejection
  * @returns nothing
  */

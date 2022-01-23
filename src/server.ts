@@ -19,6 +19,8 @@ import logger, {
 } from './services/logger/logger.module';
 import ormconfig from './db/ormconfig';
 import { addRootUser } from './services/users/user.service';
+import loginRouter from './services/login/login.router';
+import { authMiddleware } from './services/authMiddleware/auth.middleware';
 
 /**
  * Create an instance of the fastify server
@@ -50,14 +52,21 @@ export const createServer = async (): Promise<
 
   server.register(boardRouter);
 
+  server.register(loginRouter);
+
   server
     .addHook('preSerialization', (_request, reply, payload, next) => {
       Object.assign(reply, { payload });
       next();
     })
-    .addHook('preHandler', (request, _reply, next) => {
+    .addHook('preHandler', async (request, reply, next) => {
       logRequestBodyInfo(request);
-      next();
+      const nonAuthPaths = ['/login', '/doc'];
+      if (nonAuthPaths.includes(request.routerPath)) {
+        next();
+      } else {
+        await authMiddleware(request, reply, next);
+      }
     })
     .addHook('onSend', (_request, reply, payload, next) => {
       Object.assign(reply, { payload });
