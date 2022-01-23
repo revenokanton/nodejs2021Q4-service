@@ -9,6 +9,10 @@ export type checkAuthorizationProps = {
   password: string;
 };
 
+/**
+ * Generate toke for authenticated use
+ * @returns Promise with token or null is returned
+ */
 export const userAuthorization = async ({
   login,
   password,
