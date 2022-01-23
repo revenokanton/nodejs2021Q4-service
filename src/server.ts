@@ -61,7 +61,7 @@ export const createServer = async (): Promise<
     })
     .addHook('preHandler', async (request, reply, next) => {
       logRequestBodyInfo(request);
-      const nonAuthPaths = ['/login', '/doc'];
+      const nonAuthPaths = ['/login', '/doc', '/'];
       if (nonAuthPaths.includes(request.routerPath)) {
         next();
       } else {

@@ -14,7 +14,10 @@ export const authMiddleware = async (
   reply: FastifyReply,
   next: HookHandlerDoneFunction
 ) => {
-  const authHeader = String(request?.headers?.Authorization || '');
+  const authHeader = String(
+    request?.headers?.authorization || request?.headers?.Authorization || ''
+  );
+
   if (authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7, authHeader.length);
     const secret = config.JWT_SECRET_KEY as string;
