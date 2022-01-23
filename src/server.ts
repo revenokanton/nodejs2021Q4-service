@@ -18,6 +18,7 @@ import logger, {
   logServerStart,
 } from './services/logger/logger.module';
 import ormconfig from './db/ormconfig';
+import { addRootUser } from './services/users/user.service';
 
 /**
  * Create an instance of the fastify server
@@ -85,6 +86,8 @@ const startServer = async (): Promise<void> => {
     logLoggerLevel();
 
     await setUpErrorHandlers();
+
+    await addRootUser();
   });
 };
 
