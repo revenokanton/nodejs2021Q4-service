@@ -1,0 +1,13 @@
+# Ignore everything
+*
+
+# Include application files
+!src
+!logs
+!db
+!tsconfig.json
+!.env
+
+# Include build files
+!package.json
+!package-lock.json

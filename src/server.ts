@@ -72,7 +72,7 @@ export const createServer = async (): Promise<
 const startServer = async (): Promise<void> => {
   const server = await createServer();
 
-  await server.listen(config.PORT, () => {
+  await server.listen(config.PORT, '0.0.0.0', () => {
     logServerStart(config.PORT);
   });
 

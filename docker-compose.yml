@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    env_file: .env
+    container_name: db_container
+    volumes:
+      - postgres_db:/db/pgdata
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    networks:
+      - net
+  app:
+    build:
+      context: ./
+    image: server:16.13-alpine
+    container_name: server_container
+    env_file: .env
+    ports:
+      - "${PORT}:${CONTAINER_PORT}"
+    working_dir: /app
+    volumes:
+      - app:/app/node_modules
+      - ./:/app
+      - ../logs:/logs
+    restart: always
+    links:
+      - postgres
+    networks:
+      - net
+volumes:
+  postgres_db:
+  app:
+networks:
+  net:
+    driver: bridge
+    name: net

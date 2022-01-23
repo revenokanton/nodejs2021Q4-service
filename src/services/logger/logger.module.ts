@@ -82,6 +82,7 @@ export const logRequestBodyInfo = (request: FastifyRequest) => {
  */
 export const logServerStart = (port: string | number) => {
   logger.info(`Server starts on port ${port}`);
+  console.log(`Server starts on port ${port}`);
 };
 
 /**
