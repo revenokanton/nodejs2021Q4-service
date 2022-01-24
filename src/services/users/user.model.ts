@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 export interface UserInterface {
   name: string;
@@ -14,26 +14,19 @@ export interface UserInterface {
  * @property login - The user's login
  * @property password - The user's password
  */
-export class User implements UserInterface {
-  name: string;
-
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
+  name: string;
+
+  @Column()
   login: string;
 
+  @Column()
   password: string;
-
-  constructor({
-    id = uuidv4(),
-    name = 'USER',
-    login = 'user',
-    password = 'P@55w0rd',
-  }: UserInterface) {
-    this.id = id;
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
 
   /**
    * Returns user data without password

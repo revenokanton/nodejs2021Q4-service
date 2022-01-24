@@ -5,16 +5,19 @@ import fastify, {
   FastifyLoggerInstance,
 } from 'fastify';
 import * as http from 'http';
+import { createConnection } from 'typeorm';
 import { config } from './common/config';
 import userRouter from './services/users/user.router';
 import taskRouter from './services/task/task.router';
 import boardRouter from './services/board/board.router';
 import { setUpErrorHandlers } from './services/errors/errors.service';
+import 'reflect-metadata';
 import logger, {
   logLoggerLevel,
   logRequestBodyInfo,
   logServerStart,
 } from './services/logger/logger.module';
+import ormconfig from './db/ormconfig';
 
 /**
  * Create an instance of the fastify server
@@ -70,15 +73,19 @@ export const createServer = async (): Promise<
  * @returns Promise void is returned
  */
 const startServer = async (): Promise<void> => {
-  const server = await createServer();
+  await createConnection(ormconfig).then(async (connection) => {
+    await connection.runMigrations();
 
-  await server.listen(config.PORT, '0.0.0.0', () => {
-    logServerStart(config.PORT);
+    const server = await createServer();
+
+    await server.listen(config.PORT, '0.0.0.0', () => {
+      logServerStart(config.PORT);
+    });
+
+    logLoggerLevel();
+
+    await setUpErrorHandlers();
   });
-
-  logLoggerLevel();
-
-  await setUpErrorHandlers();
 };
 
 startServer();

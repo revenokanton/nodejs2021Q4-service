@@ -1,12 +1,11 @@
-import { BoardInterface } from './board.model';
-
-let boards: BoardInterface[] = [];
+import { getManager, getRepository } from 'typeorm';
+import { Board, BoardInterface } from './board.model';
 
 /**
  * Returns all boards from repository
  * @returns Promise - to boards array from temporary db
  */
-const findAll = async (): Promise<BoardInterface[]> => boards;
+const findAll = async (): Promise<BoardInterface[]> => getManager().find(Board);
 
 /**
  * Returns board from repository with provided id
@@ -15,16 +14,15 @@ const findAll = async (): Promise<BoardInterface[]> => boards;
  * or undefined if no such board found
  */
 const findById = async (id: string): Promise<BoardInterface | undefined> =>
-  boards.find((i) => i.id === id);
+  getRepository(Board).findOne(id);
 
 /**
  * Add new board to the boards temporary db
  * @param board - object with board fields
  * @returns Promise void is returned
  */
-const addNewBoard = async (board: BoardInterface): Promise<void> => {
-  boards.push(board);
-};
+const addNewBoard = async (board: BoardInterface): Promise<Board> =>
+  getRepository(Board).save(board);
 
 /**
  * Updates board with provided id according to provided data
@@ -36,10 +34,10 @@ const updateBoard = async (
   id: string,
   data: BoardInterface
 ): Promise<BoardInterface | null> => {
-  const boardIndex = boards.findIndex((i) => i.id === id);
-  if (boardIndex !== -1) {
-    boards[boardIndex] = { ...boards[boardIndex], ...data };
-    return boards[boardIndex] as BoardInterface;
+  const existingBoard = await getRepository(Board).findOne(id);
+  if (existingBoard) {
+    const boardToUpdate = { ...existingBoard, ...data };
+    return getRepository(Board).save(boardToUpdate);
   }
   return null;
 };
@@ -50,10 +48,9 @@ const updateBoard = async (
  * @returns Promise to board which was deleted or null if no such board found
  */
 const deleteBoard = async (id: string): Promise<BoardInterface | null> => {
-  const board = await findById(id);
-  if (board) {
-    boards = [...boards.filter((i) => i.id !== id)];
-    return board;
+  const boardToDelete = await getRepository(Board).findOne(id);
+  if (boardToDelete) {
+    return getRepository(Board).remove(boardToDelete);
   }
   return null;
 };

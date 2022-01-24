@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { User, UserInterface } from './user.model';
 import userRepo from './user.memory.repository';
-import taskRepo from '../task/task.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
 
 export type UserRequestType = {
@@ -59,8 +58,7 @@ export const addUser = async (
   req: FastifyRequest<UserRequestType>,
   reply: FastifyReply
 ) => {
-  const user = new User(req.body);
-  await userRepo.addNewUser(user);
+  const user = await userRepo.addNewUser(req.body);
   reply
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')
@@ -105,7 +103,6 @@ export const deleteUser = async (
   const { id } = req.params;
   const user = await userRepo.deleteUser(id);
   if (user) {
-    await taskRepo.deleteUserIdFromTasks(id);
     reply
       .code(200)
       .header('Content-Type', 'application/json; charset=utf-8')

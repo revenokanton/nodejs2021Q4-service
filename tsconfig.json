@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "target": "es6",
     "module": "CommonJS",
     "rootDir": "./src",
@@ -8,6 +10,7 @@
     "baseUrl": "./src",
     "esModuleInterop": true,
     "noPropertyAccessFromIndexSignature": true,
+    "strictPropertyInitialization": false,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,7 +21,6 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
     "useUnknownInCatchVariables": true
   },
   "include": ["./src/**/*.ts"]

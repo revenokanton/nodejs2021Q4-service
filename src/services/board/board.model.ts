@@ -1,14 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
-
-export interface ColumnInterface {
-  title: string;
-  order: number;
-}
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { BoardColumn } from '../column/column.model';
+import { Task } from '../task/task.model';
 
 export interface BoardInterface {
   id: string;
   title: string;
-  columns: ColumnInterface[];
+  columns: BoardColumn[];
 }
 
 /**
@@ -17,23 +14,22 @@ export interface BoardInterface {
  * @property title - The board's title
  * @property columns - The board's columns
  */
-export class Board implements BoardInterface {
+@Entity()
+export class Board {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   title: string;
 
-  columns: ColumnInterface[];
+  @OneToMany(() => BoardColumn, (column) => column.board, {
+    eager: true,
+    cascade: true,
+  })
+  columns: BoardColumn[];
 
-  constructor({
-    id = uuidv4(),
-    title = 'BOARD',
-    columns = [],
-  }: BoardInterface) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns.map((column) => ({
-      id: uuidv4(),
-      ...column,
-    }));
-  }
+  @OneToMany(() => Task, (task) => task.boardId, {
+    cascade: true,
+  })
+  tasks: Task[];
 }
