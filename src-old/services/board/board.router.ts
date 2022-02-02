@@ -6,6 +6,7 @@ import {
   deleteBoard,
   getAllBoards,
 } from './board.service';
+import { BoardColumn } from '../column/column.model';
 
 const schema = {
   body: {
@@ -13,7 +14,7 @@ const schema = {
     required: ['title', 'columns'],
     properties: {
       title: { type: 'string' },
-      columns: { type: 'array', default: [] },
+      columns: { type: 'array', default: [] as BoardColumn[] },
     },
   },
 };

@@ -1,27 +1,22 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    "target": "es6",
-    "module": "CommonJS",
-    "rootDir": "./src",
-    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
-    "esModuleInterop": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "strictPropertyInitialization": false,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "strict": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
     "noImplicitAny": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "useUnknownInCatchVariables": true
-  },
-  "include": ["./src/**/*.ts"]
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }
