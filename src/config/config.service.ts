@@ -4,14 +4,8 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-type EnvParams = { [k: string]: string | undefined };
-
 class ConfigService {
-  env: EnvParams;
-
-  constructor(env: EnvParams) {
-    this.env = env;
-  }
+  constructor(private env: { [key: string]: string | undefined }) {}
 
   private getValue(key: string, throwOnMissing = true): string {
     const value = this.env[key];

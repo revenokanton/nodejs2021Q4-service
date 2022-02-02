@@ -15,7 +15,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(APP_PORT, () =>
-    Logger.log(`Server started on port = ${APP_PORT}.`)
+    Logger.log(`Server started on port ${APP_PORT}`)
   );
 }
 bootstrap();
