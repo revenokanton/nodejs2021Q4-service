@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
+import { configService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -10,8 +10,7 @@ async function bootstrap() {
     cors: true,
   });
 
-  const appConfig = app.get<ConfigService>(ConfigService);
-  const APP_PORT = appConfig.get('port') || 4000;
+  const APP_PORT = configService.getPort() || 4000;
 
   app.useGlobalPipes(new ValidationPipe());
 
