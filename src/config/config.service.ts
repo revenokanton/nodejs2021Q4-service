@@ -38,9 +38,8 @@ class ConfigService {
       synchronize: false,
       logging: true,
       cache: false,
-      migrationsRun: true,
 
-      entities: ['**/*.entity{.ts,.js}'],
+      entities: ['dist/**/*.entity.js'],
 
       migrationsTableName: 'migration',
 
