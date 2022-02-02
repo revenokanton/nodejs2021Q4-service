@@ -3,11 +3,13 @@ export type NotFoundType = {
   board: string;
   task: string;
   boardTasks: string;
-}
+};
 
 export type ErrorMessagesType = {
-  NOT_FOUND: NotFoundType
-}
+  NOT_FOUND: NotFoundType;
+  UNAUTHORIZED: string;
+  INVALID_TOKEN: string;
+};
 
 export const errorMessages: ErrorMessagesType = {
   NOT_FOUND: {
@@ -16,4 +18,7 @@ export const errorMessages: ErrorMessagesType = {
     task: 'No task with given id.',
     boardTasks: 'No tasks with given boardId',
   },
+
+  UNAUTHORIZED: 'Forbidden',
+  INVALID_TOKEN: 'Invalid token',
 };

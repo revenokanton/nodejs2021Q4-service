@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { v4 as uuidv4 } from 'uuid';
 import { User, UserInterface } from './user.model';
 import userRepo from './user.memory.repository';
 import { handleNotFound } from '../errors/errors.service';
@@ -63,6 +64,19 @@ export const addUser = async (
     .code(201)
     .header('Content-Type', 'application/json; charset=utf-8')
     .send(User.toResponse(user));
+};
+
+/**
+ * Add user to database and send added user data
+ * @returns Promise void is returned
+ */
+export const addRootUser = async () => {
+  await userRepo.addNewUser({
+    id: uuidv4(),
+    name: 'admin',
+    login: 'admin',
+    password: 'admin',
+  });
 };
 
 /**

@@ -22,7 +22,7 @@ const findById = async (id: string): Promise<UserInterface | undefined> =>
  * @returns Promise void is returned
  */
 const addNewUser = async (user: UserInterface): Promise<User> =>
-  getRepository(User).save(user);
+  getRepository(User).save(getRepository(User).create(user));
 
 /**
  * Updates user with provided id according to provided data
@@ -37,7 +37,7 @@ const updateUser = async (
   const existingUser = await getRepository(User).findOne(id);
   if (existingUser) {
     const userToUpdate = { ...existingUser, ...data };
-    return getRepository(User).save(userToUpdate);
+    return getRepository(User).save(getRepository(User).create(userToUpdate));
   }
   return null;
 };

@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
+import bcrypt from 'bcrypt';
 
 export interface UserInterface {
   name: string;
@@ -27,6 +34,12 @@ export class User {
 
   @Column()
   password: string;
+
+  @BeforeUpdate()
+  @BeforeInsert()
+  async hashPassword(): Promise<void> {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 
   /**
    * Returns user data without password
