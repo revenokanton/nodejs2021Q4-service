@@ -14,7 +14,7 @@ export class TaskService {
   ) {}
 
   findAll(boardId: string) {
-    return this.repo.findOne({ boardId });
+    return this.repo.find({ boardId });
   }
 
   findOne({ boardId, taskId }: TaskIdParams) {

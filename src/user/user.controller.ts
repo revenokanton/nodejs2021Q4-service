@@ -12,11 +12,11 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { NotFoundUserInterceptor } from './user.interceptor';
 import { User } from './entities/user.entity';
+import { NotFoundInterceptor } from '../interceptors/not_found.interceptor';
 
 @Controller('users')
-@UseInterceptors(NotFoundUserInterceptor)
+@UseInterceptors(new NotFoundInterceptor('No user with given id.'))
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
