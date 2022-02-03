@@ -28,7 +28,7 @@ export class UserService {
 
     if (existingUser) {
       const userToUpdate = { ...existingUser, ...updateUserDto };
-      return this.repo.save(this.repo.create(userToUpdate));
+      return this.repo.save(userToUpdate);
     }
 
     return null;
