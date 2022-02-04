@@ -5,6 +5,7 @@ import { BoardModule } from './board/board.module';
 import { ColumnModule } from './column/column.module';
 import { TaskModule } from './task/task.module';
 import { configService } from './config/config.service';
+import { LoginModule } from './login/login.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { configService } from './config/config.service';
     BoardModule,
     ColumnModule,
     TaskModule,
+    LoginModule,
   ],
   controllers: [],
   providers: [],

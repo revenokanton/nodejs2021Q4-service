@@ -48,4 +48,8 @@ export class UserService {
 
     return null;
   }
+
+  findByLogin(login: string) {
+    return this.repo.findOne({ login });
+  }
 }
