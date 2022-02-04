@@ -1,12 +1,11 @@
 # First Stage : to install and build dependences
 FROM node:16.13-alpine AS builder
+
 WORKDIR /app
-
-COPY package*.json .
-
+COPY ./package.json ./
 RUN npm install
-
 COPY . .
+RUN npm run build
 
 # remove unused dependencies
 RUN rm -rf node_modules/swagger-ui-dist/*.map
@@ -28,4 +27,4 @@ FROM node:16.13-alpine
 WORKDIR /app
 COPY --from=builder /app ./
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:prod"]
