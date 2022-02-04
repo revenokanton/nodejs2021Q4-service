@@ -44,6 +44,7 @@ class ConfigService {
       database: this.getValue('DB_NAME'),
 
       synchronize: false,
+      migrationsRun: true,
       logging: true,
       cache: false,
 
