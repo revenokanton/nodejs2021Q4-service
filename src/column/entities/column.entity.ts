@@ -1,9 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  BaseEntity,
+} from 'typeorm';
 import { Board } from '../../board/entities/board.entity';
 import { Task } from '../../task/entities/task.entity';
 
 @Entity()
-export class BoardColumn {
+export class BoardColumn extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

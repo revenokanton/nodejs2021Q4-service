@@ -6,5 +6,6 @@ import { BoardColumn } from './entities/column.entity';
   imports: [TypeOrmModule.forFeature([BoardColumn])],
   controllers: [],
   providers: [],
+  exports: [TypeOrmModule],
 })
 export class ColumnModule {}

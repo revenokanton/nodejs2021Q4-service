@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  BaseEntity,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Board } from '../../board/entities/board.entity';
@@ -20,7 +21,7 @@ import { BoardColumn } from '../../column/entities/column.entity';
  * @property columnId - The column id to which the task is attached
  */
 @Entity()
-export class Task {
+export class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -9,6 +9,6 @@ import { ColumnModule } from '../column/column.module';
   imports: [TypeOrmModule.forFeature([Board]), ColumnModule],
   controllers: [BoardController],
   providers: [BoardService],
-  exports: [BoardService],
+  exports: [BoardService, TypeOrmModule],
 })
 export class BoardModule {}

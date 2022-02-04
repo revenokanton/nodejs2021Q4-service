@@ -9,5 +9,6 @@ import { BoardModule } from '../board/board.module';
   imports: [TypeOrmModule.forFeature([Task]), BoardModule],
   controllers: [TaskController],
   providers: [TaskService],
+  exports: [TypeOrmModule],
 })
 export class TaskModule {}

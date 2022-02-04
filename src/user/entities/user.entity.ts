@@ -4,6 +4,7 @@ import {
   Column,
   BeforeInsert,
   BeforeUpdate,
+  BaseEntity,
 } from 'typeorm';
 import bcrypt from 'bcrypt';
 
@@ -22,7 +23,7 @@ export interface UserInterface {
  * @property password - The user's password
  */
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
