@@ -11,15 +11,18 @@ import {
   UseInterceptors,
   NotFoundException,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { BoardService } from '../board/board.service';
 import { NotFoundInterceptor } from '../interceptors/not_found.interceptor';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('boards/:boardId')
 @UseInterceptors(new NotFoundInterceptor('No task with given id.'))
+@UseGuards(AuthGuard)
 export class TaskController {
   constructor(
     private readonly taskService: TaskService,

@@ -9,15 +9,18 @@ import {
   HttpCode,
   Put,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { NotFoundInterceptor } from '../interceptors/not_found.interceptor';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 @UseInterceptors(new NotFoundInterceptor('No user with given id.'))
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

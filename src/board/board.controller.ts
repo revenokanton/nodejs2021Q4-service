@@ -10,14 +10,17 @@ import {
   HttpCode,
   Header,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { NotFoundInterceptor } from '../interceptors/not_found.interceptor';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('boards')
 @UseInterceptors(new NotFoundInterceptor('No board with given id.'))
+@UseGuards(AuthGuard)
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
