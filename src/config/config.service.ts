@@ -43,7 +43,7 @@ class ConfigService {
       password: this.getValue('DB_PASSWORD'),
       database: this.getValue('DB_NAME'),
 
-      synchronize: true,
+      synchronize: false,
       migrationsRun: false,
       logging: true,
       cache: false,
@@ -52,7 +52,7 @@ class ConfigService {
 
       migrationsTableName: 'migration',
 
-      migrations: ['src/migration/*.ts'],
+      migrations: ['dist/migration/*.js'],
 
       cli: {
         migrationsDir: 'src/migration',
