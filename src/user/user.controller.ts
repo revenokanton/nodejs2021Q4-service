@@ -8,6 +8,7 @@ import {
   UseInterceptors,
   HttpCode,
   Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -34,7 +35,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     const user = await this.userService.findOne(id);
     if (user) {
       return User.toResponse(user);
@@ -44,7 +45,10 @@ export class UserController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() updateUserDto: UpdateUserDto
+  ) {
     const updatedUser = await this.userService.update(id, updateUserDto);
     if (updatedUser) {
       return User.toResponse(updatedUser);
@@ -54,7 +58,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', new ParseUUIDPipe()) id: string) {
     const removedUser = await this.userService.remove(id);
     if (removedUser) {
       return User.toResponse(removedUser);

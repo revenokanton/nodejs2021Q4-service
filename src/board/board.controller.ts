@@ -9,6 +9,7 @@ import {
   Put,
   HttpCode,
   Header,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -35,19 +36,22 @@ export class BoardController {
 
   @Get(':id')
   @Header('Content-Type', 'application/json; charset=utf-8')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.boardService.findOne(id);
   }
 
   @Put(':id')
   @Header('Content-Type', 'application/json; charset=utf-8')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
+  update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() updateBoardDto: UpdateBoardDto
+  ) {
     return this.boardService.update(id, updateBoardDto);
   }
 
   @Delete(':id')
   @Header('Content-Type', 'application/json; charset=utf-8')
-  remove(@Param('id') id: string) {
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.boardService.remove(id);
   }
 }

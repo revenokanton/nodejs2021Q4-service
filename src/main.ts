@@ -12,7 +12,9 @@ async function bootstrap() {
 
   const APP_PORT = configService.getPort() || 4000;
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
+  );
 
   await app.listen(APP_PORT, () =>
     Logger.log(`Server started on port ${APP_PORT}`)

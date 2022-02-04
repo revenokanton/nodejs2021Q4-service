@@ -10,6 +10,7 @@ import {
   Header,
   UseInterceptors,
   NotFoundException,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -29,7 +30,7 @@ export class TaskController {
   @HttpCode(201)
   @Header('Content-Type', 'application/json; charset=utf-8')
   async create(
-    @Param('boardId') boardId: string,
+    @Param('boardId', new ParseUUIDPipe()) boardId: string,
     @Body() createTaskDto: CreateTaskDto
   ) {
     const board = await this.boardService.findOne(boardId);
@@ -42,15 +43,15 @@ export class TaskController {
 
   @Get('tasks')
   @Header('Content-Type', 'application/json; charset=utf-8')
-  findAll(@Param('boardId') boardId: string) {
+  findAll(@Param('boardId', new ParseUUIDPipe()) boardId: string) {
     return this.taskService.findAll(boardId);
   }
 
   @Get('tasks/:taskId')
   @Header('Content-Type', 'application/json; charset=utf-8')
   async findOne(
-    @Param('boardId') boardId: string,
-    @Param('taskId') taskId: string
+    @Param('boardId', new ParseUUIDPipe()) boardId: string,
+    @Param('taskId', new ParseUUIDPipe()) taskId: string
   ) {
     const board = await this.boardService.findOne(boardId);
     if (board) {
@@ -63,8 +64,8 @@ export class TaskController {
   @Put('tasks/:taskId')
   @Header('Content-Type', 'application/json; charset=utf-8')
   async update(
-    @Param('boardId') boardId: string,
-    @Param('taskId') taskId: string,
+    @Param('boardId', new ParseUUIDPipe()) boardId: string,
+    @Param('taskId', new ParseUUIDPipe()) taskId: string,
     @Body() updateTaskDto: UpdateTaskDto
   ) {
     return this.taskService.update({ boardId, taskId }, updateTaskDto);
@@ -72,7 +73,10 @@ export class TaskController {
 
   @Delete('tasks/:taskId')
   @Header('Content-Type', 'application/json; charset=utf-8')
-  remove(@Param('boardId') boardId: string, @Param('taskId') taskId: string) {
+  remove(
+    @Param('boardId', new ParseUUIDPipe()) boardId: string,
+    @Param('taskId') taskId: string
+  ) {
     return this.taskService.remove({ boardId, taskId });
   }
 }
