@@ -22,7 +22,19 @@ import { AuthGuard } from '../auth/auth.guard';
 @UseInterceptors(new NotFoundInterceptor('No user with given id.'))
 @UseGuards(AuthGuard)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+    // Create root admin user
+    const adminDto: CreateUserDto = {
+      name: 'admin',
+      login: 'admin',
+      password: 'admin',
+    };
+
+    (async () => {
+      const admin = await this.userService.findByLogin(adminDto.login);
+      if (!admin) await this.userService.create(adminDto);
+    })();
+  }
 
   @Post()
   @HttpCode(201)

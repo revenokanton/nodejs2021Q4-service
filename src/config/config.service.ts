@@ -43,8 +43,8 @@ class ConfigService {
       password: this.getValue('DB_PASSWORD'),
       database: this.getValue('DB_NAME'),
 
-      synchronize: false,
-      migrationsRun: true,
+      synchronize: true,
+      migrationsRun: false,
       logging: true,
       cache: false,
 

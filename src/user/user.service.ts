@@ -23,7 +23,7 @@ export class UserService {
 
   @Header('Content-Type', 'application/json; charset=utf-8')
   create(createUserDto: CreateUserDto) {
-    return this.repo.save(createUserDto);
+    return this.repo.save(this.repo.create(createUserDto));
   }
 
   @Header('Content-Type', 'application/json; charset=utf-8')
