@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
 
     const token = authHeader.substring(7, authHeader.length);
     const secret = configService.getSecret();
-    const verified = await jwt.verify(token, secret);
+    const verified = jwt.verify(token, secret);
 
     if (!verified) {
       throw new UnauthorizedException('Invalid token.');
