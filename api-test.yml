@@ -1,0 +1,58 @@
+config:
+  target: 'http://localhost:4000'
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+
+before:
+  flow:
+    - log: 'Get JWT token'
+    - post:
+        url: '/login'
+        json:
+          login: 'admin'
+          password: 'admin'
+        capture:
+          - json: $.token
+            as: token
+
+scenarios:
+  - name: 'test /users'
+    flow:
+      - post:
+          url: '/users'
+          headers:
+            Content-Type: 'application/json'
+            authorization: 'Bearer {{ token }}'
+          json:
+            name: 'anton'
+            login: 'revenok'
+            password: 'rsSchool'
+          capture:
+            - json: '$.id'
+              as: 'userId'
+
+      - get:
+          url: '/users/{{ userId }}'
+          headers:
+            authorization: 'Bearer {{ token }}'
+
+      - put:
+          url: '/users/{{ users }}'
+          headers:
+            authorization: 'Bearer {{ token }}'
+          json:
+            name: 'AntonTest'
+            password: 'rsSchool'
+
+      - get:
+          url: '/users'
+          headers:
+            authorization: 'Bearer {{ token }}'
+
+      - delete:
+          url: '/users/{{ userId }}'
+          headers:
+            authorization: 'Bearer {{ token }}'
