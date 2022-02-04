@@ -25,6 +25,10 @@ class ConfigService {
     return this.getValue('PORT', true);
   }
 
+  public getLogLevel() {
+    return this.getValue('LOG_LEVEL', false);
+  }
+
   public getSecret() {
     return this.getValue('JWT_SECRET_KEY', true);
   }

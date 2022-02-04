@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { WinstonModule } from 'nest-winston';
 import { AppModule } from './app.module';
 import { configService } from './config/config.service';
+import { LoggerOptions } from './logger/logger.options';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['log', 'error', 'verbose'],
+    logger: WinstonModule.createLogger(LoggerOptions),
     bodyParser: true,
     cors: true,
   });
