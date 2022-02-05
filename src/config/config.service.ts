@@ -29,6 +29,10 @@ class ConfigService {
     return this.getValue('LOG_LEVEL', false);
   }
 
+  public getUseFastify() {
+    return this.getValue('USE_FASTIFY', false);
+  }
+
   public getSecret() {
     return this.getValue('JWT_SECRET_KEY', true);
   }
@@ -73,6 +77,7 @@ const configService = new ConfigService(process.env).ensureValues([
   'DB_NAME',
   'DB_USER',
   'DB_PASSWORD',
+  'USE_FASTIFY',
 ]);
 
 export { configService };

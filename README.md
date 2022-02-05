@@ -72,8 +72,56 @@ If you're using VSCode, you can get a better developer experience from integrati
 npm run lint
 ```
 
-### Debugging in VSCode
+## Platform performance tables
 
-Press <kbd>F5</kbd> to debug.
+### Express
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+|                    |         |
+| ------------------ | ------- |
+| http.codes.200:    | 525     |
+| http.codes.201:    | 175     |
+| http.codes.400:    | 175     |
+| http.request_rate: | 104/sec |
+| http.requests:     | 875    |
+| http.response_time:
+| min: | 0
+| max: | 138
+| median: | 3
+| p95: | 76
+| p99: | 133
+| http.responses: | 875
+| vusers.completed: | 175
+| vusers.created: | 175
+| vusers.created_by_name.test /users: | 175
+| vusers.session_length:
+| min: | 79
+| max: | 152
+| median: | 92.8
+| p95: | 144
+| p99: | 149.9
+
+### Fastify
+
+|                    |        |
+| ------------------ | ------ |
+| http.codes.200:    | 510    |
+| http.codes.201:    | 170    |
+| http.codes.400:    | 170    |
+| http.request_rate: | 99/sec |
+| http.requests:     | 850   |
+| http.response_time:
+| min: | 0
+| max: | 145
+| median: | 4
+| p95: | 77.5
+| p99: | 133
+| http.responses: | 850
+| vusers.completed: | 170
+| vusers.created: | 170
+| vusers.created_by_name.test /boards: | 170
+| vusers.session_length:
+| min: | 81.7
+| max: | 157.6
+| median: | 100.5
+| p95: | 144
+| p99: | 156

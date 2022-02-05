@@ -1,16 +1,42 @@
 import { NestFactory } from '@nestjs/core';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
+import fmp from 'fastify-multipart';
 import { AppModule } from './app.module';
 import { configService } from './config/config.service';
 import { LoggerOptions } from './logger/logger.options';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+async function createApp() {
+  const isFastify = configService.getUseFastify();
+
+  if (isFastify) {
+    const fastifyAdapter = new FastifyAdapter();
+    fastifyAdapter.register(fmp);
+
+    return NestFactory.create<NestFastifyApplication>(
+      AppModule,
+      fastifyAdapter,
+      {
+        logger: WinstonModule.createLogger(LoggerOptions),
+        bodyParser: true,
+        cors: true,
+      }
+    );
+  }
+
+  return NestFactory.create<INestApplication>(AppModule, {
     logger: WinstonModule.createLogger(LoggerOptions),
     bodyParser: true,
     cors: true,
   });
+}
+
+async function bootstrap() {
+  const app = await createApp();
 
   const APP_PORT = configService.getPort() || 4000;
 
@@ -22,4 +48,5 @@ async function bootstrap() {
     Logger.log(`Server started on port ${APP_PORT}`)
   );
 }
+
 bootstrap();
