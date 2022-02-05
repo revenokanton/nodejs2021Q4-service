@@ -27,4 +27,4 @@ FROM node:16.13-alpine
 WORKDIR /app
 COPY --from=builder /app ./
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]
