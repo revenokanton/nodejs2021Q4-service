@@ -21,7 +21,7 @@ export class FileController {
   @UseInterceptors(UploadFileInterceptor)
   async upload(@UploadedFile() file: Express.Multer.File) {
     return {
-      filename: file.filename,
+      fileName: file.filename,
     };
   }
 
