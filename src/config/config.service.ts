@@ -30,11 +30,15 @@ class ConfigService {
   }
 
   public getUseFastify() {
-    return this.getValue('USE_FASTIFY', false);
+    return this.getValue('USE_FASTIFY', false) === 'true';
   }
 
   public getSecret() {
     return this.getValue('JWT_SECRET_KEY', true);
+  }
+
+  public getFileStorageDirectory() {
+    return this.getValue('FILE_STORAGE', true);
   }
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
@@ -78,6 +82,7 @@ const configService = new ConfigService(process.env).ensureValues([
   'DB_USER',
   'DB_PASSWORD',
   'USE_FASTIFY',
+  'FILE_STORAGE',
 ]);
 
 export { configService };

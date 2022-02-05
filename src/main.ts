@@ -5,7 +5,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import fmp from 'fastify-multipart';
+import fastifyMultipart from 'fastify-multipart';
 import { AppModule } from './app.module';
 import { configService } from './config/config.service';
 import { LoggerOptions } from './logger/logger.options';
@@ -15,7 +15,7 @@ async function createApp() {
 
   if (isFastify) {
     const fastifyAdapter = new FastifyAdapter();
-    fastifyAdapter.register(fmp);
+    fastifyAdapter.register(fastifyMultipart);
 
     return NestFactory.create<NestFastifyApplication>(
       AppModule,
