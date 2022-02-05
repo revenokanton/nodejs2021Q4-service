@@ -104,24 +104,24 @@ npm run lint
 
 |                    |        |
 | ------------------ | ------ |
-| http.codes.200:    | 510    |
-| http.codes.201:    | 170    |
-| http.codes.400:    | 170    |
-| http.request_rate: | 99/sec |
-| http.requests:     | 850   |
+| http.codes.200:    | 249    |
+| http.codes.201:    | 83    |
+| http.codes.400:    | 83    |
+| http.request_rate: | 80/sec |
+| http.requests:     | 415   |
 | http.response_time:
 | min: | 0
-| max: | 145
-| median: | 4
-| p95: | 77.5
-| p99: | 133
-| http.responses: | 850
-| vusers.completed: | 170
-| vusers.created: | 170
-| vusers.created_by_name.test /boards: | 170
+| max: | 135
+| median: | 3
+| p95: | 74.4
+| p99: | 130.3
+| http.responses: | 415
+| vusers.completed: | 83
+| vusers.created: | 83
+| vusers.created_by_name.test /boards: | 83
 | vusers.session_length:
-| min: | 81.7
-| max: | 157.6
-| median: | 100.5
-| p95: | 144
-| p99: | 156
+| min: | 79.3
+| max: | 148.1
+| median: | 96.6
+| p95: | 141.2
+| p99: | 147
