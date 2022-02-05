@@ -38,15 +38,13 @@ async function createApp() {
 async function bootstrap() {
   const app = await createApp();
 
-  const APP_PORT = configService.getPort() || 4000;
-
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
   );
 
-  await app.listen(APP_PORT, () =>
-    Logger.log(`Server started on port ${APP_PORT}`)
-  );
+  await app.listen(configService.getPort(), '0.0.0.0');
 }
 
-bootstrap();
+bootstrap().then(() => {
+  Logger.log(`Server started on port ${configService.getPort()}`);
+});
