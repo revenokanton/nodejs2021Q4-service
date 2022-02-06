@@ -118,7 +118,7 @@ npm run lint
 | http.responses: | 415
 | vusers.completed: | 83
 | vusers.created: | 83
-| vusers.created_by_name.test /boards: | 83
+| vusers.created_by_name.test /users: | 83
 | vusers.session_length:
 | min: | 79.3
 | max: | 148.1
